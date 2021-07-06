@@ -1,0 +1,65 @@
+.gallery {
+    display       : flex;
+    flex-direction: row-reverse;
+    align-items   : center;
+    border-radius : 20px;
+}
+
+.thumbnails {
+    display       : flex;
+    flex-direction: row;
+    align-content : center;
+}
+
+.thumbnails p {
+    display         : flex;
+    height          : 200px;
+    width           : 200px;
+    border-radius   : 15px;
+    margin          : 10px;
+    justify-content : center;
+    align-content   : center;
+    text-align      : center;
+    background-color: black;
+}
+
+.image-upload-area {
+
+  display:flex;
+  flex-direction: column;
+    border-radius: 10px;
+    margin-top   : 25px;
+}
+
+.uploads-each {
+    display        : flex;
+    flex-wrap      : wrap;
+    width          : 120px;
+    margin         : 10px;
+    width          : 60vw;
+    justify-content: center;
+    border-radius  : 20px;
+
+}
+
+.uploads-each img {
+    display       : flex;
+    flex-wrap     : wrap;
+    border-radius : 10px;
+    float         : left;
+    width         : 250px;
+    height        : 250px;
+    object-fit    : cover;
+}
+
+
+
+.image-one {
+    margin          : 20px;
+    border-radius   : 15px;
+    background-color: white;
+    margin          : 5px;
+    justify-content : center;
+    align-items     : center;
+    align-content   : center;
+}

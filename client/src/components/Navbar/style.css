@@ -1,0 +1,20 @@
+div.navbar {
+    display         : inline-flex;
+    flex-direction  : row;
+    justify-content : space-around;
+    top             : 0;
+    width           : 99%;
+    text-align      : right;
+    background-color: transparent;
+    align-items     : stretch;
+    width           : 40rem;
+}
+
+.nav-links,
+.nav-links a {
+    display       : inline-flex;
+    flex-direction: row;
+    margin: 7px;
+    color: black;
+    font-weight: bold;
+}

@@ -1,0 +1,11 @@
+.image-upload-form {
+    display         : flex;
+    flex-direction  : column;
+    flex-wrap       : wrap;
+    height          : auto;
+    width           : auto;
+    background-color: grey;
+    border-radius   : 15px;
+    padding         : 10px;
+    margin          : 5px;
+}

@@ -1,0 +1,10 @@
+.detail-image p {
+    height: 300px;
+    width: 300px; 
+    border-radius: 10px;
+    background-color: black;
+}
+
+.detail-image img {
+    width: 30rem;
+}
