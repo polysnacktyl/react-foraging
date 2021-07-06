@@ -2,26 +2,41 @@
   "name": "fungi-react",
   "version": "0.1.0",
   "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "dotenv": "^10.0.0",
+    "nodemon": "^1.18.7",
+    "react-app-env": "^1.2.3"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "babel-eslint": "10.1.0",
+    "cloudinary-core": "^2.11.4",
+    "cloudinary-react": "^1.7.0",
+    "concurrently": "^6.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "if-env": "^1.0.4",
+    "mongoose": "^5.13.2",
+    "nodemon": "^2.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^1.1.5",
     "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
