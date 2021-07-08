@@ -5,7 +5,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const Map = ReactMapboxGl({ accessToken: process.env.REACT_APP_mapBox_accessToken });
 
 function Mapp(props) {
-
     const longitude = props.longitude
     const latitude = props.latitude
 

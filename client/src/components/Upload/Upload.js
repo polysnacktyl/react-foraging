@@ -26,9 +26,10 @@ class Upload extends React.Component {
         return fetch('https://api.Cloudinary.com/v1_1/fung-id/image/upload', options)
             .then(res => res.json())
             .then(res => {
+                console.log(res)
                 this.setState({
                     created: res.image_metadata.CreateDate,
-                    imageurl: res.url,
+                    imageurl: process.env.REACT_APP_cloudinary_upload + res.public_id + '.jpg',
                     latitude: res.image_metadata.GPSLatitude,
                     longitude: res.image_metadata.GPSLongitude,
                 })
@@ -95,8 +96,7 @@ class Upload extends React.Component {
             <section className='image-upload' >
                 <div className='image-upload-form'>
                     <input
-                        type='file'
-                        accept='image/*' />
+                        type='file' />
                 </div>
                 <div className='submit-button-div'>
                     <button
