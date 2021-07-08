@@ -5,6 +5,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './views/Home';
 import Gallery from './components/Gallery/Gallery';
 import Detail from './components/Detail/Detail';
+import Map from './components/Map/Map';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path='/home'><Home /></Route>
           <Route exact path='/gallery'><Gallery /></Route>
           <Route exact path='/detail/:id'><Detail /></Route>
+          <Route exact path='/map'><Map /></Route>
         </Router>
       </CloudinaryContext>
     </div>

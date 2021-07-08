@@ -15,6 +15,7 @@
   "devDependencies": {
     "concurrently": "^4.1.0",
     "dotenv": "^10.0.0",
+    "jest": "^20.0.4",
     "nodemon": "^1.18.7",
     "react-app-env": "^1.2.3"
   },
@@ -24,12 +25,14 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "babel-eslint": "10.1.0",
+    "babel-jest": "^27.0.6",
     "cloudinary-core": "^2.11.4",
     "cloudinary-react": "^1.7.0",
     "concurrently": "^6.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
+    "mapbox-gl": "^2.3.1",
     "mongoose": "^5.13.2",
     "nodemon": "^2.0.9",
     "react": "^17.0.2",

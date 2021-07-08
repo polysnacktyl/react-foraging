@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const routes = require('./routes/index');
 require('dotenv').config();
-// your build command in each environment is not npm run build any more its npm run build:staging , npm run build:production
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

@@ -20,54 +20,50 @@ function Gallery() {
             .catch(err => console.log(err));
     };
 
-    function handleFormSubmit(event) {
-        event.preventDefault();
-        API.saveUpload({
-            imageurl: this.state.imageurl,
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
-            created: this.state.created
-        })
-    };
-
     return (
-        <CloudinaryContext cloudName="fung-id" >
+        <CloudinaryContext cloudName="fung-id">
             <div className='content-container'>
                 <div className='gallery'>
                     <div className='images'>
                         {uploads.length ? (
                             <div key={uploads.id}
-                                className='uploads-each'>
+                                className='thumbnails-inner'>
                                 {uploads.reverse().map(uploads => (
                                     <div key={uploads._id}
                                         className='image-one'>
                                         <Link
                                             to={`/detail/${uploads._id}`}
-                                            imageurl={uploads.imageurl}>
+                                            value={uploads}>
                                             <Image
                                                 key={uploads._id}
-                                                src={uploads.imageurl} />
+                                                src={uploads.imageurl}
+                                                latitude={uploads.latitude}
+                                            />
                                         </Link>
                                     </div>
                                 ))}
                             </div>
-
-
                         ) : (
-                            <p>
-                                <span
-                                    role='img'
-                                    aria-label='mushroom emoji'>
-                                    🍄
-                                </span>
-                            </p>
+                            <div className='empty-gallery'>
+                                <p>
+                                    <span
+                                        role='img'
+                                        aria-label='mushroom emoji'>
+                                        🍄
+                                    </span>
+                                    <span> insert some fungus among us--please and thank you </span>
+                                    <span
+                                        role='img'
+                                        aria-label='mushroom emoji'>
+                                        🍄
+                                    </span>
+                                </p>
+                            </div>
                         )}
                     </div>
-
-
                     <div className='image-upload-area'>
                         <form>
-                            <Upload onSubmit={handleFormSubmit} loadUploads={loadUploads} />
+                            <Upload loadUploads={loadUploads} />
                         </form>
                     </div>
                 </div>
@@ -76,7 +72,6 @@ function Gallery() {
     )
 };
 
-
-
-
 export default Gallery;
+
+

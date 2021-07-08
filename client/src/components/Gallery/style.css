@@ -1,21 +1,32 @@
 .gallery {
-    display       : flex;
-    flex-direction: row-reverse;
-    align-items   : center;
-    border-radius : 20px;
+    display        : flex;
+    flex-direction : column-reverse;
+    align-content  : flex-start;
+    align-items    : center;
+    justify-content: flex-start;
+    border-radius  : 20px;
+}
+
+.empty-gallery {
+    display        : flex;
+    flex-direction : row;
+    align-content  : center;
+    align-items    : center;
+    justify-content: center;
+    padding-top    : 15rem;
 }
 
 .thumbnails {
     display       : flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-content : center;
 }
 
 .thumbnails p {
     display         : flex;
-    height          : 200px;
-    width           : 200px;
-    border-radius   : 15px;
+    height          : 180px;
+    width           : 180px;
+    border-radius   : 25px;
     margin          : 10px;
     justify-content : center;
     align-content   : center;
@@ -24,35 +35,32 @@
 }
 
 .image-upload-area {
-
-  display:flex;
-  flex-direction: column;
-    border-radius: 10px;
-    margin-top   : 25px;
+    display       : flex;
+    flex-direction: column;
+    border-radius : 10px;
+    margin-top    : 25px;
 }
 
-.uploads-each {
+.thumbnails-inner {
     display        : flex;
     flex-wrap      : wrap;
     width          : 120px;
     margin         : 10px;
-    width          : 60vw;
+    width          : 80vw;
     justify-content: center;
     border-radius  : 20px;
 
 }
 
-.uploads-each img {
-    display       : flex;
-    flex-wrap     : wrap;
-    border-radius : 10px;
-    float         : left;
-    width         : 250px;
-    height        : 250px;
-    object-fit    : cover;
+.thumbnails-inner img {
+    display      : flex;
+    flex-wrap    : wrap;
+    border-radius: 10px;
+    float        : left;
+    width        : 250px;
+    height       : 250px;
+    object-fit   : cover;
 }
-
-
 
 .image-one {
     margin          : 20px;

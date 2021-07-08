@@ -1,10 +1,27 @@
 .detail-image p {
-    height: 300px;
-    width: 300px; 
     border-radius: 10px;
-    background-color: black;
+    text-align   : left;
 }
 
 .detail-image img {
-    width: 30rem;
+    max-height   : 37rem;
+    max-width    : 35rem;
+    border-radius: 10px;
+}
+
+.detail-container {
+    display        : flex;
+    flex-direction : row;
+    flex-wrap      : wrap;
+    justify-content: space-around;
+    align-items    : flex-start;
+    width          : 90vw;
+    margin-top     : 70px;
+}
+
+.detail-thumbnail {
+    display       : flex;
+    flex-direction: column;
+    flex-wrap     : wrap;
+    align-items   : center;
 }

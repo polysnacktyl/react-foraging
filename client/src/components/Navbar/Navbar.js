@@ -12,7 +12,6 @@ function Navbar() {
                 <NavLink exact activeClassName='active' to='/gallery'>
                     gallery
                 </NavLink>
-
             </div>
         </div>
     )
