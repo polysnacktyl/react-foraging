@@ -6,7 +6,7 @@ import Map from '../Map/Map';
 import './style.css';
 
 function Detail(props) {
-    const [upload, setUploads] = useState([])
+    const [upload, setUploads] = useState([props])
     const { id } = useParams()
 
     useEffect(() => {
@@ -21,26 +21,29 @@ function Detail(props) {
             .catch(err => console.log(err))
     };
 
+
     return (
         <CloudinaryContext >
             <div className='content-container'>
                 <div className='detail-container'>
                     <div className='detail-thumbnail'>
                         <div className='detail-image'>
-                            <Image
-                                src={upload.imageurl} />
-                            <div className='details'>
-                                <p>coordinates: [{upload.latitude}, {upload.longitude}]</p>
-                                <p>found on: {upload.created}</p>
+                            <Image src={upload.imageurl} />
+                        </div>
+                        <div className='details'>
+                            <div className='map'>
+                                <div className='mapid'>
+                                    <Map />
+                                </div>
                             </div>
+                            <p>notes and such will go here soon</p>
                         </div>
                     </div>
-                    <Map
-                        latitude={upload.latitude}
-                        longitude={upload.longitude}> </Map>
+
                 </div>
+
             </div>
-        </CloudinaryContext>
+        </CloudinaryContext >
     )
 }
 

@@ -23,12 +23,13 @@ class Upload extends React.Component {
             body: formData,
         };
 
-        return fetch('https://api.Cloudinary.com/v1_1/fung-id/image/upload', options)
+        return fetch(process.env.REACT_APP_cloudinary_secure_upload, options)
             .then(res => res.json())
             .then(res => {
                 console.log(res)
                 this.setState({
                     created: res.image_metadata.CreateDate,
+                    thumbnail: process.env.REACT_APP_cloudinary_upload + 'c_thumb,w_400/' + res.public_id + '.jpg',
                     imageurl: process.env.REACT_APP_cloudinary_upload + res.public_id + '.jpg',
                     latitude: res.image_metadata.GPSLatitude,
                     longitude: res.image_metadata.GPSLongitude,
@@ -83,6 +84,7 @@ class Upload extends React.Component {
             .then(res => {
                 API.saveUpload({
                     created: this.state.created,
+                    thumbnail: this.state.thumbnail,
                     imageurl: this.state.imageurl,
                     latitude: this.state.latitude,
                     longitude: this.state.longitude

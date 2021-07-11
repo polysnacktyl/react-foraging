@@ -32,12 +32,12 @@ function Gallery() {
                                     <div key={uploads._id}
                                         className='image-one'>
                                         <Link
-                                            to={`/detail/${uploads._id}`}
-                                            value={uploads}>
+                                            to={`/detail/${uploads._id}`}>
                                             <Image
                                                 key={uploads._id}
-                                                src={uploads.imageurl}
+                                                src={uploads.thumbnail}
                                                 latitude={uploads.latitude}
+                                                longitude={uploads.longitude}
                                             />
                                         </Link>
                                     </div>
@@ -68,7 +68,7 @@ function Gallery() {
                     </div>
                 </div>
             </div>
-        </CloudinaryContext>
+        </CloudinaryContext >
     )
 };
 
