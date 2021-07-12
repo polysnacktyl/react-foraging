@@ -8,6 +8,7 @@ import Home from './views/Home';
 import Gallery from './components/Gallery/Gallery';
 import Detail from './components/Detail/Detail';
 import UserContext from './utils/userContext';
+import ModalMega from './components/ModalMega';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
             <Route exact path='/home'><Home /></Route>
             <ProtectedRoute exact path='/gallery' component={Gallery} />
             <ProtectedRoute exact path='/detail/:id' component={Detail} />
+            <Route exact path='/modal'><ModalMega /></Route>
           </Router>
         </div>
       </CloudinaryContext>

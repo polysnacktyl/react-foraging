@@ -1,5 +1,6 @@
 import React from 'react';
 import API from '../../utils/API';
+import ModalMega from '../ModalMega';
 import './style.css';
 
 class Upload extends React.Component {
@@ -13,7 +14,8 @@ class Upload extends React.Component {
         this.handleImageUpload = this.handleImageUpload.bind(this)
     }
 
-    handleImageUpload = () => {
+    handleImageUpload = (event) => {
+        event.preventDefault()
         const { files } = document.querySelector('input[type="file"]')
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -95,20 +97,11 @@ class Upload extends React.Component {
 
     render() {
         return (
-            <section className='image-upload' >
-                <div className='image-upload-form'>
-                    <input
-                        type='file' />
-                </div>
-                <div className='submit-button-div'>
-                    <button
-                        type='button'
-                        className='image-upload-button'
-                        onClick={this.handleImageUpload}>
-                        submit
-                    </button>
-                </div>
-            </section>
+            <div>
+                <ModalMega handleImageUpload={this.handleImageUpload} />
+            </div>
+
+
         );
     }
 }
