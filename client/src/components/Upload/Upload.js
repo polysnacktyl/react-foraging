@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
 import Alert from '../Alert';
 
-export default function Upload() {
+export default function Upload(props) {
     const [fileInputState, setFileInputState] = useState('');
-    // const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState();
     const [successMsg, setSuccessMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
     
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
-        // previewFile(file);
         setSelectedFile(file);
         setFileInputState(e.target.value);
     };
-
-    // const previewFile = (file) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //         setPreviewSource(reader.result);
-    //     };
-    // };
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
@@ -45,8 +35,8 @@ export default function Upload() {
                 headers: { 'Content-Type': 'application/json' },
             });
             setFileInputState('');
-            // setPreviewSource('');
             setSuccessMsg('Image uploaded successfully');
+            props.loadUploads();
         } catch (err) {
             console.error(err);
             setErrMsg('Something went wrong!');
@@ -70,13 +60,7 @@ export default function Upload() {
                     Submit
                 </button>
             </form>
-            {/* {previewSource && (
-                <img
-                    src={previewSource}
-                    alt="chosen"
-                    style={{ height: '300px' }}
-                /> 
-            )}*/}
+
         </div>
     );
 }

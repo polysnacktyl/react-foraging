@@ -1,4 +1,6 @@
 const router = require('express').Router()
+const mongoose = require('mongoose');
+const Upload = require('../../models/uploads');
 const { cloudinary } = require('../../utils/cloudinary');
 
 router.route('/')
@@ -12,10 +14,9 @@ router.route('/')
                     image_metadata: true
                 });
 
-            let createdate = (uploadResponse.image_metadata.DateCreated.split(/:/));
-            let created = (createdate[1] + '/' + createdate[2] + '/' + createdate[0]);
+            let createdate = (uploadResponse.image_metadata.CreateDate.split(' '));
             let thumbnail = ('http://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg');
-            let imageurl = (uploadResponse.url);
+            let imageurl = ('http://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg')
 
             let lat = uploadResponse.image_metadata.GPSLatitude.split(/[^\d\w.]+/);
             let lat1 = parseFloat(lat[0]);
@@ -33,12 +34,18 @@ router.route('/')
             let longitude = (lon1 + lon2 + lon3).toFixed(6) * 1
             if (lon4 === 'W') { longitude = longitude * -1 }
 
-            console.log(created);
-            console.log(latitude);
-            console.log(longitude);
-            console.log(thumbnail);
-            console.log(imageurl);
-            
+            mongoose.connect('mongodb://localhost/fungID');
+            var new_upload = new Upload({
+                created: createdate[0],
+                latitude: latitude,
+                longitude: longitude,
+                thumbnail: thumbnail,
+                imageurl: imageurl
+            });
+            new_upload.save(function (err) {
+                if (err) console.log(err);
+            });
+
             res.json({ msg: 'yaya' });
         } catch (err) {
             console.error(err);
