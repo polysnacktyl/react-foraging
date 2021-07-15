@@ -5,8 +5,7 @@ router.route("/")
   .get(uploadsController.findAll)
   .post(uploadsController.create);
 
-router
-  .route("/:id")
+router.route("/:id")
   .get(uploadsController.findById)
   .put(uploadsController.update)
   .delete(uploadsController.remove);

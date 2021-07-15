@@ -7,6 +7,8 @@ gallery | detail view
 
 
 ## Credits
-[tutorial: conditional rendering prop data from axios call](https://codewithnico.com/react-wait-axios-to-render/)
+[conditional rendering prop data from axios call](https://codewithnico.com/react-wait-axios-to-render/), [Nicolás Gómez](https://github.com/muZk)
 
-[tutorial: modal + upload form](https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571)
+[modal + upload form](https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571), [Krissanawat​ Kaewsanmuang](https://medium.com/@krissanawat)
+
+[nodejs cloudinary upload](https://www.youtube.com/watch?v=Rw_QeJLnCK4), [James Q Quick](https://twitter.com/jamesqquick)

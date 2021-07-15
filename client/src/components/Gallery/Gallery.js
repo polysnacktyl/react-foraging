@@ -62,9 +62,7 @@ function Gallery() {
                         )}
                     </div>
                     <div className='image-upload-area'>
-                        <form>
-                            <Upload loadUploads={loadUploads} />
-                        </form>
+                        <Upload />
                     </div>
                 </div>
             </div>

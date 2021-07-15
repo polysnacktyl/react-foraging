@@ -4,9 +4,9 @@ import { Container } from './ModalContainer';
 
 const ModalMega = (props) => {
   const triggerText = '+🍄';
-  // const onSubmit = (event) => {
-  //   event.preventDefault(event);
-  // };
+  const onSubmit = (event) => {
+    event.preventDefault(event);
+  };
   return (
     <div className="App">
 
