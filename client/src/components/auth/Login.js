@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from '../../utils/authContext';
+import './style.css';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -28,24 +29,27 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>Log in to your account</h1>
-      <form onSubmit={login}>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button type="submit">Log in</button>
-      </form>
+    <div className='content-container'>
+      <div className='login-form'>
+        <form onSubmit={login}>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          /><br></br>
+
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          /><br></br>
+          <button type="submit">Log in</button>
+        </form>
+      </div>
     </div>
+
   );
 }
 

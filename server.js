@@ -5,12 +5,12 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const routes = require('./routes');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
+
 app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'))
 

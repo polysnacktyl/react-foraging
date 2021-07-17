@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import AuthContext from "../../utils/authContext";
+import './style.css';
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -32,32 +33,33 @@ function Register() {
   }
 
   return (
-    <div>
-      <h1>Register a new account</h1>
-      <form onSubmit={register}>
-        <input
-          type="email"
-          placeholder="Email"
-          autoComplete='off'
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          autoComplete='off'
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <input
-          type="password"
-          placeholder="Verify your password"
-          autoComplete='off'
-          onChange={(e) => setPasswordVerify(e.target.value)}
-          value={passwordVerify}
-        />
-        <button type="submit">Register</button>
-      </form>
+    <div className='content-container'>
+      <div className='register-form'>
+        <form onSubmit={register}>
+          <input
+            type="email"
+            placeholder="Email"
+            autoComplete='off'
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          /><br></br>
+          <input
+            type="password"
+            placeholder="Password"
+            autoComplete='off'
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          /><br></br>
+          <input
+            type="password"
+            placeholder="Verify your password"
+            autoComplete='off'
+            onChange={(e) => setPasswordVerify(e.target.value)}
+            value={passwordVerify}
+          /><br></br>
+          <button type="submit">Register</button>
+        </form>
+      </div>
     </div>
   );
 }

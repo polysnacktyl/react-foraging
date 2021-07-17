@@ -1,0 +1,14 @@
+form {
+    display       : flex;
+    flex-direction: column !important;
+    flex-wrap     : wrap;
+    align-items   : center;
+}
+
+.login-form {
+    margin-top: 100px;
+}
+
+.register-form {
+    margin-top: 100px;
+}

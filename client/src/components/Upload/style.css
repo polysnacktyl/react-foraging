@@ -1,38 +1,24 @@
-.image-upload-form {
-    display         : flex;
-    flex-direction  : column;
-    flex-wrap       : wrap;
-    height          : auto;
-    width           : auto;
-    background-color: white;
-    border-radius   : 5px;
-    padding         : 10px;
-    margin          : 5px;
-}
-
-.submit-button-div {
-    display         : flex;
-    flex-direction  : column;
-    flex-wrap       : wrap;
-    height          : 20px;
-    width           : auto;
-    background-color: white;
-    border-radius   : 5px;
-    padding         : 10px;
-    margin          : 5px;
-}
-
 .image-upload {
-    display         : flex;
-    flex-direction  : row;
-    background-color: darkgrey;
-    border-radius   : 5px;
-    padding         : 10px 0px 10px 0px;
-    justify-content : center;
-    align-items     : center;
-    width           : 400px;
+    display        : flex;
+    flex-direction : row !important;
+    border-radius  : 5px;
+    padding        : 10px 0px 10px 0px;
+    justify-content: center;
+    align-items    : center;
+    width          : 400px;
 }
 
-.image-upload-button {
-    height: 20px;
+.image-form {
+    display       : flex;
+    flex-direction: row !important;
+}
+
+.image-form button {
+    height: 22px;
+}
+
+.form-input {
+    display       : flex;
+    flex-direction: row;
+    width         : 200px;
 }

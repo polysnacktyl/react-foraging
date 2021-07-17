@@ -9,17 +9,17 @@ function Navbar() {
 
   return (
     <div className='nav-links'>
-      <Link to="/">Home</Link>
+      <Link to="/">home</Link>
 
       {loggedIn === false && (
         <>
-          <Link to="/register">Register</Link>
-          <Link to="/login">Log in</Link>
+          <Link to="/login">log in</Link>
+          <Link to="/register">register</Link>
         </>
       )}
       {loggedIn === true && (
         <>
-          <Link to='/gallery'> Gallery </Link>
+          <Link to='/gallery'>gallery</Link>
           <LogOutBtn />
         </>
       )}

@@ -1,8 +1,9 @@
 .welcome {
-    display: flex;
-    flex-direction: column;
+    display        : flex;
+    flex-direction : column;
     justify-content: center;
-    text-align: center;
+    text-align     : center;
+    margin-top     : 120px;
 }
 
 .welcome img {

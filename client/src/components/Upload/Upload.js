@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './style.css';
 
 export default function Upload(props) {
     const [fileInputState, setFileInputState] = useState('');
@@ -41,25 +42,23 @@ export default function Upload(props) {
         }
     };
     return (
-        <div>
-
-            <form onSubmit={handleSubmitFile} className="form">
-
-                <input
-                    id="fileInput"
-                    type="file"
-                    name="image"
-                    onChange={handleFileInputChange}
-                    value={fileInputState}
-                    className="form-input" />
-
-                <button
-                    className="btn"
-                    type="submit">
-                    Submit
-                </button>
-            </form>
-
-        </div>
+        
+            <div className='image-upload'>
+                <form onSubmit={handleSubmitFile} className="image-form">
+                    <input
+                        id="fileInput"
+                        type="file"
+                        name="image"
+                        onChange={handleFileInputChange}
+                        value={fileInputState}
+                        className="form-input" />
+                    <button
+                        className="btn"
+                        type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        
     );
 }
