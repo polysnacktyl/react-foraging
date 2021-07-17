@@ -1,22 +1,32 @@
-const { cloudinary } = require('./utils/cloudinary');
-const express = require("express");
-const mongoose = require("mongoose");
-const path = require("path");
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
 const PORT = process.env.PORT || 3001;
 const app = express();
-var cors = require('cors');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const routes = require('./routes');
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
-app.use(cors());
+app.use(cookieParser());
+app.use('/api', require('./routes/api'));
+app.use('/auth', require('./routes/auth/user'))
+
+app.use(cors({
+  origin: ['http://localhost:3000'],
+  credentials: true,
+})
+);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
 }
-
-app.use(routes);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fungID',
   {
@@ -25,11 +35,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fungID',
     useCreateIndex: true,
     useFindAndModify: false
   });
-
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`)

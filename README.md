@@ -12,3 +12,5 @@ gallery | detail view
 [modal + upload form](https://blog.bitsrc.io/build-a-full-featured-modal-dialog-form-with-react-651dcef6c571), [Krissanawat​ Kaewsanmuang](https://medium.com/@krissanawat)
 
 [nodejs cloudinary upload](https://www.youtube.com/watch?v=Rw_QeJLnCK4), [James Q Quick](https://twitter.com/jamesqquick)
+
+[MERN user authentication tutorial](https://www.youtube.com/playlist?list=PLJM1tXwlGdaf57oUx0rIqSW668Rpo_7oU)[Joost Bijlsma](https://github.com/jgbijlsma)

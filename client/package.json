@@ -8,6 +8,7 @@
         "@react-leaflet/core": ">=1.0.0 <1.1.0 || ^1.1.1",
         "babel-eslint": "10.1.0",
         "concurrently": "^6.2.0",
+        "cors": "^2.8.5",
         "env-cmd": "^10.1.0",
         "focus-trap-react": "^8.7.0",
         "if-env": "^1.0.4",

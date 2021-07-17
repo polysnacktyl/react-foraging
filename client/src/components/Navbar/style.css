@@ -14,7 +14,7 @@ div.navbar {
 .nav-links a {
     display       : inline-flex;
     flex-direction: row;
-    margin: 7px;
-    color: black;
-    font-weight: bold;
+    margin        : 7px;
+    color         : black;
+    font-weight   : bold;
 }
