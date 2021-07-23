@@ -2,14 +2,13 @@ const router = require("express").Router();
 const User = require('../../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
-// register
+const cloudinary = require('cloudinary').v2;
+const Upload = require('../../models/uploads');
+const mongoose = require('mongoose');
 
 router.post("/", async (req, res) => {
   try {
     const { email, password, passwordVerify } = req.body;
-
-    // validation
 
     if (!email || !password || !passwordVerify)
       return res
@@ -17,27 +16,28 @@ router.post("/", async (req, res) => {
         .json({ errorMessage: "Please enter all required fields." });
 
     if (password.length < 6)
-      return res.status(400).json({
-        errorMessage: "Please enter a password of at least 6 characters.",
-      });
+      return res
+        .status(400)
+        .json({
+          errorMessage: "Please enter a password of at least 6 characters.",
+        });
 
     if (password !== passwordVerify)
-      return res.status(400).json({
-        errorMessage: "Please enter the same password twice.",
-      });
+      return res
+        .status(400)
+        .json({
+          errorMessage: "Please enter the same password twice.",
+        });
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email }).exec();
     if (existingUser)
       return res.status(400).json({
         errorMessage: "An account with this email already exists.",
       });
 
-    // hash the password
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
-
-    // save a new user account to the db
 
     const newUser = new User({
       email,
@@ -46,8 +46,6 @@ router.post("/", async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    // sign the token
-
     const token = jwt.sign(
       {
         user: savedUser._id,
@@ -55,8 +53,6 @@ router.post("/", async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    // send the token in a HTTP-only cookie
-
     res
       .cookie("token", token, {
         httpOnly: true,
@@ -66,55 +62,58 @@ router.post("/", async (req, res) => {
       .send();
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    res
+      .status(500)
+      .send();
   }
 });
 
-// log in
-
 router.post("/login", async (req, res) => {
+
   try {
     const { email, password } = req.body;
-
-    // validate
 
     if (!email || !password)
       return res
         .status(400)
         .json({ errorMessage: "Please enter all required fields." });
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email })
+    console.log(existingUser._id)
+
     if (!existingUser)
-      return res.status(401).json({ errorMessage: "Wrong email or password." });
+      return res
+        .status(401)
+        .json({ errorMessage: "Wrong email or password." });
 
     const passwordCorrect = await bcrypt.compare(
       password,
       existingUser.passwordHash
     );
     if (!passwordCorrect)
-      return res.status(401).json({ errorMessage: "Wrong email or password." });
-
-    // sign the token
+      return res
+        .status(401)
+        .json({ errorMessage: "Wrong email or password." });
 
     const token = jwt.sign(
-      {
-        user: existingUser._id,
-      },
-      process.env.JWT_SECRET
+      { user: existingUser._id, },
+      process.env.JWT_SECRET,
+      { expiresIn: '12h' }
     );
-
-    // send the token in a HTTP-only cookie
 
     res
       .cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        // secure: true, //https-only
+        // sameSite: "none",
       })
-      .send();
+      //used to be .send(token)
+      .json(existingUser)
+
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    res
+      .status(500).send('err try again');
   }
 });
 
@@ -124,21 +123,77 @@ router.get("/logout", (req, res) => {
       httpOnly: true,
       expires: new Date(0),
       secure: true,
-      sameSite: "none",
+      sameSite: "none"
     })
     .send();
 });
 
+router.post('/upload', async (req, res) => {
+  try {
+    const fileStr = req.body.data;
+    const uploadResponse = await cloudinary.uploader.upload(
+      fileStr,
+      {
+        upload_preset: cloudinary.upload_preset,
+        image_metadata: true
+      });
+
+    let createdate = (uploadResponse.image_metadata.CreateDate.split(' '));
+    let thumbnail = ('http://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg');
+    let imageurl = ('http://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg')
+
+    let lat = uploadResponse.image_metadata.GPSLatitude.split(/[^\d\w.]+/);
+    let lat1 = parseFloat(lat[0]);
+    let lat2 = parseFloat(lat[2] / 60);
+    let lat3 = parseFloat(lat[3] / 3600);
+    let lat4 = lat[4];
+    let latitude = (lat1 + lat2 + lat3).toFixed(6) * 1
+    if (lat4 === 'S') { latitude = latitude * -1 }
+
+    let lon = uploadResponse.image_metadata.GPSLongitude.split(/[^\d\w.]+/);
+    let lon1 = parseFloat(lon[0]);
+    let lon2 = parseFloat(lon[2] / 60);
+    let lon3 = parseFloat(lon[3] / 3600);
+    let lon4 = lon[4];
+    let longitude = (lon1 + lon2 + lon3).toFixed(6) * 1
+    if (lon4 === 'W') { longitude = longitude * -1 }
+
+    mongoose.connect('mongodb://localhost/fungID');
+    var new_upload = new Upload({
+      created: createdate[0],
+      latitude: latitude,
+      longitude: longitude,
+      thumbnail: thumbnail,
+      imageurl: imageurl
+    });
+    new_upload.save(function (err) {
+      if (err) console.log(err);
+    });
+
+    res.json();
+  } catch (err) {
+    console.error(err);
+    res
+      .status(503)
+      .json({ err: err });
+  }
+});
+
+
 router.get("/loggedIn", (req, res) => {
   try {
     const token = req.cookies.token;
+
     if (!token) return res.json(false);
-
     jwt.verify(token, process.env.JWT_SECRET);
+    res
+      .send(true)
 
-    res.send(true);
+
   } catch (err) {
-    res.json(false);
+
+    res
+      .json(false);
   }
 });
 

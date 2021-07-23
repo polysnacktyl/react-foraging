@@ -1,28 +1,31 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Context } from '../../utils/Reducer';
 import AuthContext from '../../utils/authContext';
 import './style.css';
 
-function Login() {
+function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { getLoggedIn } = useContext(AuthContext);
-  const history = useHistory();
+  const { state, dispatch } = useContext(Context);
+
 
   async function login(e) {
     e.preventDefault();
 
     try {
-      const loginData = {
+      const { data } = await axios.post("http://localhost:3000/auth/login", {
         email,
-        password,
-      };
-
-      await axios.post("http://localhost:3000/auth/login", loginData);
+        password
+      });
+      console.log(data);
       await getLoggedIn();
-      history.push("/");
+      dispatch({
+        type: 'login',
+        payload: { user: data._id }
+      })
+      // history.push("/");
     } catch (err) {
       console.error(err);
     }
@@ -45,10 +48,15 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           /><br></br>
-          <button type="submit">Log in</button>
+          <button type="submit">log in</button>
+
+    
         </form>
+        
       </div>
+      <div><p> {JSON.stringify(state)}</p></div>
     </div>
+    
 
   );
 }
