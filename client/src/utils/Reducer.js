@@ -15,7 +15,13 @@ export const Reducer = (state, action) => {
             };
         case 'logout':
             return {
-                ...state, user: '',
+                ...state,
+                user: '',
+            };
+        case 'loadUploads':
+            return {
+                ...state,
+                user: action.payload,
             };
         default:
             return state;

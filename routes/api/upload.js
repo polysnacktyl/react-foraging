@@ -36,6 +36,7 @@ router.route('/')
 
             mongoose.connect('mongodb://localhost/fungID');
             var new_upload = new Upload({
+                user: req.body.user,
                 created: createdate[0],
                 latitude: latitude,
                 longitude: longitude,

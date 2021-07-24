@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary').v2;
 const Upload = require('../../models/uploads');
 const mongoose = require('mongoose');
+db = require('../../models');
 
 router.post("/", async (req, res) => {
   try {
@@ -47,9 +48,7 @@ router.post("/", async (req, res) => {
     const savedUser = await newUser.save();
 
     const token = jwt.sign(
-      {
-        user: savedUser._id,
-      },
+      { user: savedUser._id, },
       process.env.JWT_SECRET
     );
 
@@ -79,7 +78,6 @@ router.post("/login", async (req, res) => {
         .json({ errorMessage: "Please enter all required fields." });
 
     const existingUser = await User.findOne({ email })
-    console.log(existingUser._id)
 
     if (!existingUser)
       return res
@@ -104,8 +102,8 @@ router.post("/login", async (req, res) => {
     res
       .cookie("token", token, {
         httpOnly: true,
-        // secure: true, //https-only
-        // sameSite: "none",
+        secure: true, //https-only
+        sameSite: "none",
       })
       //used to be .send(token)
       .json(existingUser)
@@ -113,7 +111,8 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.error(err);
     res
-      .status(500).send('err try again');
+      .status(500)
+      .send('err try again');
   }
 });
 
@@ -124,7 +123,8 @@ router.get("/logout", (req, res) => {
 
 router.post('/upload', async (req, res) => {
   try {
-    const fileStr = req.body.data;
+    const fileStr = req.body;
+    console.log(req.body.data);
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
       {
@@ -154,6 +154,7 @@ router.post('/upload', async (req, res) => {
 
     mongoose.connect('mongodb://localhost/fungID');
     var new_upload = new Upload({
+      user: req.body.user,
       created: createdate[0],
       latitude: latitude,
       longitude: longitude,
@@ -172,6 +173,16 @@ router.post('/upload', async (req, res) => {
       .json({ err: err });
   }
 });
+
+router.post('/mine', async (req, res) => {
+  try {
+    db.Upload
+      .find({ user: req.body.user })
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(423).json(err));
+  } catch { (err) => res.status(400).json(err.message); }
+
+})
 
 
 router.get("/loggedIn", (req, res) => {

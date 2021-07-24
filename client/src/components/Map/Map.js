@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import API from '../../utils/API';
 import './Map.css';
 
-function Mapp(props) {
+function Mapp() {
     const [isLoading, setLoading] = useState(true);
     const [coords, setCoords] = useState();
     const { id } = useParams();
@@ -22,27 +22,28 @@ function Mapp(props) {
         return (
             <div>...loading</div>
         )
+    } else {
+
+        return (
+            <div className='mapid' >
+                <MapContainer
+                    center={[coords.latitude, coords.longitude]}
+                    zoom={16}
+                    scrollWheelZoom={true}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    <Marker position={[coords.latitude, coords.longitude]}>
+                        <Popup>
+                            popup text
+                        </Popup>
+                    </Marker>
+                </MapContainer>
+
+            </div>
+        )
     }
-
-    return (
-        <div className='mapid' >
-            <MapContainer
-                center={[coords.latitude, coords.longitude]}
-                zoom={16}
-                scrollWheelZoom={true}>
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Marker position={[coords.latitude, coords.longitude]}>
-                    <Popup>
-                        popup text
-                    </Popup>
-                </Marker>
-            </MapContainer>
-
-        </div>
-    )
 }
 
 

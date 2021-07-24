@@ -1,24 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Image, CloudinaryContext } from 'cloudinary-react';
+import { Context } from '../../utils/Reducer';
 import Upload from '../Upload/Upload';
-import API from '../../utils/API';
 import './style.css';
 
-function Gallery() {
+function Gallery(props) {
     const [uploads, setUploads] = useState([])
+    const { state } = useContext(Context);
+    const { user } = state.user;
 
     useEffect(() => {
         loadUploads()
+        //eslint-disable-next-line
     }, [])
 
-    function loadUploads() {
-        API.getUploads()
-            .then(res =>
-                setUploads(res.data),
-            )
-            .catch(err => console.log(err));
-    };
+    async function loadUploads() {
+        axios.post('http://localhost:3000/auth/mine', {
+            user
+        })
+            .then(res => setUploads(res.data))
+            .catch(error => console.log(error.response));
+    }
 
     return (
         <CloudinaryContext cloudName="fung-id">
@@ -62,12 +66,13 @@ function Gallery() {
                         )}
                     </div>
                     <div className='image-upload-area'>
-                        <Upload loadUploads={loadUploads}/>
+                        <Upload />
                     </div>
                 </div>
             </div>
         </CloudinaryContext >
     )
+
 };
 
 export default Gallery;
