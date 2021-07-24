@@ -118,14 +118,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res
-    .cookie("token", "", {
-      httpOnly: true,
-      expires: new Date(0),
-      secure: true,
-      sameSite: "none"
-    })
-    .send();
+  res.clearCookie("token");
+  return res.json('successful signout')
 });
 
 router.post('/upload', async (req, res) => {

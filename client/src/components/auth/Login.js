@@ -1,14 +1,19 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from '../../utils/Reducer';
+
 import AuthContext from '../../utils/authContext';
 import './style.css';
 
-function Login(props) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const { getLoggedIn } = useContext(AuthContext);
-  const { state, dispatch } = useContext(Context);
+  const history = useHistory();
+
+  const { dispatch } = useContext(Context);
 
 
   async function login(e) {
@@ -20,12 +25,18 @@ function Login(props) {
         password
       });
       console.log(data);
+
       await getLoggedIn();
+
       dispatch({
         type: 'login',
         payload: { user: data._id }
       })
-      // history.push("/");
+
+      window.localStorage.setItem('user', JSON.stringify(data._id))
+
+      history.push("/gallery");
+
     } catch (err) {
       console.error(err);
     }
@@ -49,14 +60,10 @@ function Login(props) {
             value={password}
           /><br></br>
           <button type="submit">log in</button>
-
-    
+          
         </form>
-        
       </div>
-      <div><p> {JSON.stringify(state)}</p></div>
     </div>
-    
 
   );
 }

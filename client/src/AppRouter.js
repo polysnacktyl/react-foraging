@@ -8,6 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import Gallery from './components/Gallery/Gallery';
 import Detail from './components/Detail/Detail';
 
+
 function AppRouter() {
     const { loggedIn } = useContext(AuthContext);
 
