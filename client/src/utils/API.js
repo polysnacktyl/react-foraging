@@ -13,7 +13,5 @@ export default {
   saveUpload: function (uploadData) {
     return axios.post("/api/uploads", uploadData);
   },
-  getMyUploads: function (user) {
-    return axios.post('/api/uploads/mine', { user: user })
-  }
+
 };

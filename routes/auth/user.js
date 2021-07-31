@@ -123,7 +123,7 @@ router.get("/logout", (req, res) => {
 
 router.post('/upload', async (req, res) => {
   try {
-    const fileStr = req.body;
+    const fileStr = req.body.data;
     console.log(req.body.data);
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
@@ -167,7 +167,7 @@ router.post('/upload', async (req, res) => {
 
     res.json();
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
     res
       .status(503)
       .json({ err: err });
@@ -179,7 +179,7 @@ router.post('/mine', async (req, res) => {
     db.Upload
       .find({ user: req.body.user })
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(423).json(err));
+      .catch(err => res.status(400).json(err.message));
   } catch { (err) => res.status(400).json(err.message); }
 
 })

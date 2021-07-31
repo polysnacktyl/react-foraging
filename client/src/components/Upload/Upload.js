@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import axios from 'axios';
 import { Context } from '../../utils/Reducer';
 import './style.css';
 
@@ -6,6 +7,8 @@ export default function Upload(props) {
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
     const { state } = useContext(Context);
+    const user = state.user;
+
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -29,9 +32,10 @@ export default function Upload(props) {
 
     const uploadImage = async (base64EncodedImage) => {
         try {
-            await fetch('/api/upload', {
+            await fetch('http://localhost:3000/auth/upload', {
+
                 method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage, user: state.user }),
+                body: JSON.stringify({ data: base64EncodedImage, user: user }),
                 headers: { 'Content-Type': 'application/json' },
             });
 

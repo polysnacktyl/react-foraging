@@ -6,23 +6,27 @@ import { Context } from '../../utils/Reducer';
 import Upload from '../Upload/Upload';
 import './style.css';
 
-function Gallery(props) {
-    const [uploads, setUploads] = useState([])
+function Gallery() {
+    const [uploads, setUploads] = useState('')
     const { state } = useContext(Context);
-    const { user } = state.user;
-
+    const user = state.user;
+    console.log(user);
+    
     useEffect(() => {
         loadUploads()
         //eslint-disable-next-line
     }, [])
 
+
     async function loadUploads() {
-        axios.post('http://localhost:3000/auth/mine', {
-            user
+       await axios.post('http://localhost:3000/auth/mine', {
+            user: user
         })
             .then(res => setUploads(res.data))
             .catch(error => console.log(error.response));
     }
+
+
 
     return (
         <CloudinaryContext cloudName="fung-id">
@@ -66,7 +70,7 @@ function Gallery(props) {
                         )}
                     </div>
                     <div className='image-upload-area'>
-                        <Upload />
+                        <Upload loadUploads={loadUploads} />
                     </div>
                 </div>
             </div>
