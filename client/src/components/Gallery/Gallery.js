@@ -7,76 +7,96 @@ import Upload from '../Upload/Upload';
 import './style.css';
 
 function Gallery() {
-    const [uploads, setUploads] = useState('')
-    const { state } = useContext(Context);
+    const [isLoading, setLoading] = useState(true);
+    // const [images, setImages] = useState({})
+    const { state, dispatch } = useContext(Context);
     const user = state.user;
-    console.log(user);
-    
+    const [uploads, setUploads] = useState([]);
+    console.log(state.images);
+
     useEffect(() => {
-        loadUploads()
+        loadImages()
         //eslint-disable-next-line
     }, [])
 
+    async function loadImages() {
+        try {
+            const res = await axios.post('http://localhost:3000/auth/mine', {
+                user
+            });
 
-    async function loadUploads() {
-       await axios.post('http://localhost:3000/auth/mine', {
-            user: user
-        })
-            .then(res => setUploads(res.data))
-            .catch(error => console.log(error.response));
+            dispatch({
+                type: 'loadImages',
+                payload: { images: res.data }
+            })
+
+            setUploads(res.data)
+            setLoading(false)
+        }
+        catch (err) {
+            console.error(err);
+        }
     }
 
 
+    if (isLoading) {
+        return (
+            <div className='loading'>
+                ...loading
+            </div>
+        )
+    } else {
 
-    return (
-        <CloudinaryContext cloudName="fung-id">
-            <div className='content-container'>
-                <div className='gallery'>
-                    <div className='images'>
-                        {uploads.length ? (
-                            <div key={uploads.id}
-                                className='thumbnails-inner'>
-                                {uploads.reverse().map(uploads => (
-                                    <div key={uploads._id}
-                                        className='image-one'>
-                                        <Link
-                                            to={`/detail/${uploads._id}`}>
-                                            <Image
-                                                key={uploads._id}
-                                                src={uploads.thumbnail}
-                                                latitude={uploads.latitude}
-                                                longitude={uploads.longitude}
-                                            />
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className='empty-gallery'>
-                                <p>
-                                    <span
-                                        role='img'
-                                        aria-label='mushroom emoji'>
-                                        🍄
-                                    </span>
-                                    <span> insert some fungus among us--please and thank you </span>
-                                    <span
-                                        role='img'
-                                        aria-label='mushroom emoji'>
-                                        🍄
-                                    </span>
-                                </p>
-                            </div>
-                        )}
-                    </div>
-                    <div className='image-upload-area'>
-                        <Upload loadUploads={loadUploads} />
+        return (
+            <CloudinaryContext cloudName="fung-id">
+                <div className='content-container'>
+                    <div className='gallery'>
+                        <div className='images'>
+                            {uploads.length ? (
+                                <div key={uploads.id}
+                                    className='thumbnails-inner'>
+                                    {uploads.reverse().map(images => (
+                                        <div key={images._id}
+                                            className='image-one'>
+                                            <Link
+                                                to={`/detail/${images._id}`}>
+                                                <Image
+                                                    key={images._id}
+                                                    src={images.thumbnail}
+                                                    latitude={images.latitude}
+                                                    longitude={images.longitude}
+                                                />
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className='empty-gallery'>
+                                    <p>
+                                        <span
+                                            role='img'
+                                            aria-label='mushroom emoji'>
+                                            🍄
+                                        </span>
+                                        <span> insert some fungus among us--please and thank you </span>
+                                        <span
+                                            role='img'
+                                            aria-label='mushroom emoji'>
+                                            🍄
+                                        </span>
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                        <div className='image-upload-area'>
+                            <Upload loadImages={loadImages} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </CloudinaryContext >
-    )
+            </CloudinaryContext >
+        )
 
+    }
 };
 
 export default Gallery;

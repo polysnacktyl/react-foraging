@@ -3,8 +3,10 @@ import { createContext } from 'react';
 export const Context = createContext();
 
 export const initialState = {
-    user: ''
+    user: '',
+    images: []
 }
+
 
 export const Reducer = (state, action) => {
     switch (action.type) {
@@ -18,10 +20,15 @@ export const Reducer = (state, action) => {
                 ...state,
                 user: '',
             };
-        case 'loadUploads':
+        case 'loadImages':
             return {
                 ...state,
-                user: action.payload,
+                images: action.payload,
+            };
+        case 'displayImages':
+            return {
+                ...state,
+                images: action.payload
             };
         default:
             return state;
