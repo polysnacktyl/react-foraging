@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export const Context = createContext();
 
 export const initialState = {
+    isLoading: false,
     user: '',
     images: []
 }
@@ -19,17 +20,24 @@ export const Reducer = (state, action) => {
             return {
                 ...state,
                 user: '',
+                images: []
             };
-        case 'loadImages':
+        case 'fetchImages':
+            return {
+                ...state,
+                isLoading: true
+            };
+        case 'fetchSuccess':
             return {
                 ...state,
                 images: action.payload,
+                isLoading: false
             };
-        case 'displayImages':
+        case 'fetchFail':
             return {
                 ...state,
-                images: action.payload
-            };
+                isLoading: false
+            }
         default:
             return state;
     };

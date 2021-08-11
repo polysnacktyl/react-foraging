@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Image, CloudinaryContext } from 'cloudinary-react';
@@ -8,43 +8,41 @@ import './style.css';
 
 function Gallery() {
     const [isLoading, setLoading] = useState(true);
-    // const [images, setImages] = useState({})
     const { state, dispatch } = useContext(Context);
     const user = state.user;
     const [uploads, setUploads] = useState([]);
-    console.log(state.images);
+
+    const success = async () => {
+        const res = await axios.post('http://localhost:3000/auth/mine', {
+            user
+        });
+        console.log(res.data);
+        dispatch({
+            type: 'fetchSuccess',
+            payload: { images: res.data }
+        })
+        setUploads(res.data)
+    }
+
+    const loadImages = useCallback(() => {
+        dispatch({ type: 'fetchImages' });
+        setTimeout(async () => {
+            try {
+                await success();
+            } catch (error) {
+                console.log(error);
+            }
+        }, 1000);
+    }, []);
 
     useEffect(() => {
         loadImages()
+        setLoading(false)
         //eslint-disable-next-line
     }, [])
 
-    async function loadImages() {
-        try {
-            const res = await axios.post('http://localhost:3000/auth/mine', {
-                user
-            });
-
-            dispatch({
-                type: 'loadImages',
-                payload: { images: res.data }
-            })
-
-            setUploads(res.data)
-            setLoading(false)
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
-
-
     if (isLoading) {
-        return (
-            <div className='loading'>
-                ...loading
-            </div>
-        )
+        return (<div className='loading'>...loading</div>)
     } else {
 
         return (
