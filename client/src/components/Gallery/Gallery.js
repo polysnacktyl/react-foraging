@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Image, CloudinaryContext } from 'cloudinary-react';
@@ -7,37 +7,45 @@ import Upload from '../Upload/Upload';
 import './style.css';
 
 function Gallery() {
-    const [isLoading, setLoading] = useState(true);
     const { state, dispatch } = useContext(Context);
+    const [isLoading, setLoading] = useState(true);
+    const [images, setImages] = useState({ images: [] });
     const user = state.user;
-    const [uploads, setUploads] = useState([]);
 
     const success = async () => {
-        const res = await axios.post('http://localhost:3000/auth/mine', {
-            user
-        });
-        console.log(res.data);
-        dispatch({
-            type: 'fetchSuccess',
-            payload: { images: res.data }
-        })
-        setUploads(res.data)
+        try {
+            const res = await axios.post('http://localhost:3000/auth/mine', { user });
+
+            dispatch({
+                type: 'fetchSuccess',
+                payload: { images: res.data }
+            })
+
+            setImages(res.data);
+
+        } catch (err) { console.log(err.response) }
     }
 
-    const loadImages = useCallback(() => {
+    const fail = (error) =>
+        dispatch({
+            type: 'fetchFail',
+            payload: { error: error.message }
+        });
+
+    function loadImages() {
         dispatch({ type: 'fetchImages' });
         setTimeout(async () => {
             try {
                 await success();
+                setLoading(false)
             } catch (error) {
-                console.log(error);
+                await fail(error);
             }
         }, 1000);
-    }, []);
+    }
 
     useEffect(() => {
         loadImages()
-        setLoading(false)
         //eslint-disable-next-line
     }, [])
 
@@ -50,10 +58,10 @@ function Gallery() {
                 <div className='content-container'>
                     <div className='gallery'>
                         <div className='images'>
-                            {uploads.length ? (
-                                <div key={uploads.id}
+                            {images.length ? (
+                                <div key={images.id}
                                     className='thumbnails-inner'>
-                                    {uploads.reverse().map(images => (
+                                    {images.reverse().map(images => (
                                         <div key={images._id}
                                             className='image-one'>
                                             <Link
