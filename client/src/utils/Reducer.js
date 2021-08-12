@@ -15,7 +15,7 @@ export const Reducer = (state, action) => {
             return {
                 ...state,
                 user: action.payload, 
-                images: null, 
+             
             };
         case 'logout':
             return {

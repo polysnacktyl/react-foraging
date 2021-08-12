@@ -14,9 +14,8 @@ function Gallery() {
 
     const success = async () => {
 
-        const res = await axios.get('http://localhost:3000/auth/mine', {
-            params: { user }
-        })
+        const res = await axios.get(`http://localhost:3000/auth/mine?user=${user}`);
+        console.log(res);
         dispatch({
             type: 'fetchSuccess',
             payload: res.data
