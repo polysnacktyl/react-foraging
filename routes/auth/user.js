@@ -174,10 +174,10 @@ router.post('/upload', async (req, res) => {
   }
 });
 
-router.post('/mine', async (req, res) => {
+router.get('/mine', async (req, res) => {
   try {
     db.Upload
-      .find({ user: req.body.user })
+      .find({ User: req.params.user })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(400).json(err.message));
   } catch { (err) => res.status(400).json(err.message); }

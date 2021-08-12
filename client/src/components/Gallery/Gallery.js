@@ -9,22 +9,22 @@ import './style.css';
 function Gallery() {
     const { state, dispatch } = useContext(Context);
     const [isLoading, setLoading] = useState(true);
-    const [images, setImages] = useState({ images: [] });
+    const [images, setImages] = useState([]);
     const user = state.user;
 
     const success = async () => {
-        try {
-            const res = await axios.post('http://localhost:3000/auth/mine', { user });
 
-            dispatch({
-                type: 'fetchSuccess',
-                payload: { images: res.data }
-            })
+        const res = await axios.get('http://localhost:3000/auth/mine', {
+            params: { user }
+        })
+        dispatch({
+            type: 'fetchSuccess',
+            payload: res.data
+        })
 
-            setImages(res.data);
-
-        } catch (err) { console.log(err.response) }
+        setImages(res.data);
     }
+
 
     const fail = (error) =>
         dispatch({
@@ -41,7 +41,7 @@ function Gallery() {
             } catch (error) {
                 await fail(error);
             }
-        }, 1000);
+        }, 0);
     }
 
     useEffect(() => {
@@ -49,7 +49,7 @@ function Gallery() {
         //eslint-disable-next-line
     }, [])
 
-    if (isLoading) {
+    if (isLoading || images == null) {
         return (<div className='loading'>...loading</div>)
     } else {
 
