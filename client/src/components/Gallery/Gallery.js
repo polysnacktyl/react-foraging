@@ -6,24 +6,27 @@ import { Context } from '../../utils/Reducer';
 import Upload from '../Upload/Upload';
 import './style.css';
 
+
 function Gallery() {
     const { state, dispatch } = useContext(Context);
     const [isLoading, setLoading] = useState(true);
     const [images, setImages] = useState([]);
     const user = state.user;
-
+    console.log(state.user);
     const success = async () => {
+        const res = await axios({
+            url: 'http://localhost:3000/auth/mine', params: {user: user}
+        });
 
-        const res = await axios.get(`http://localhost:3000/auth/mine?user=${user}`);
-        console.log(res);
+        setImages(res.data)
+
         dispatch({
             type: 'fetchSuccess',
-            payload: res.data
+            payload: res.data,
+
         })
 
-        setImages(res.data);
     }
-
 
     const fail = (error) =>
         dispatch({
@@ -31,16 +34,17 @@ function Gallery() {
             payload: { error: error.message }
         });
 
+
     function loadImages() {
-        dispatch({ type: 'fetchImages' });
         setTimeout(async () => {
             try {
                 await success();
+                console.log(user);
                 setLoading(false)
             } catch (error) {
                 await fail(error);
             }
-        }, 0);
+        }, 200);
     }
 
     useEffect(() => {

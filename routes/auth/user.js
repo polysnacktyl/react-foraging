@@ -175,11 +175,13 @@ router.post('/upload', async (req, res) => {
 });
 
 router.get('/mine', async (req, res) => {
+  const user = req.query.user;
+  console.log(user);
   try {
     db.Upload
-      .find(req.query)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(400).json(err.message));
+      .find({user: user})
+      .then(images => res.json(images))
+
   } catch { (err) => res.status(400).json(err.message); }
 
 })

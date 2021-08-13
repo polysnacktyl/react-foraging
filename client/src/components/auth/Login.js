@@ -12,28 +12,34 @@ function Login() {
   const { dispatch } = useContext(Context);
   const history = useHistory();
 
+
   async function login(e) {
     e.preventDefault();
+   
     try {
       const { data } = await axios.post('http://localhost:3000/auth/login', {
         email,
         password
       });
-
+      console.log(data);
       await getLoggedIn();
 
       dispatch({
         type: 'login',
-        payload: { user: data._id }
+        payload: data._id
       })
 
+
       window.localStorage.setItem('user', JSON.stringify(data._id))
+
 
       history.push('/gallery');
 
     } catch (err) {
       console.error(err);
     }
+
+
   }
 
   return (

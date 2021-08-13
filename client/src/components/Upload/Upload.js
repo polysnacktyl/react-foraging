@@ -37,10 +37,10 @@ export default function Upload(props) {
                 body: JSON.stringify({ data: base64EncodedImage, user: user }),
                 headers: { 'Content-Type': 'application/json' },
             });
-
+ 
             setFileInputState('');
 
-            props.loadUploads();
+            props.loadImages();
 
         } catch (err) {
             console.error(err);
