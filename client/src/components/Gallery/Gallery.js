@@ -52,10 +52,9 @@ function Gallery() {
         //eslint-disable-next-line
     }, [])
 
-    if (isLoading || images == null) {
+    if (isLoading) {
         return (<div className='loading'>...loading</div>)
     } else {
-
         return (
             <CloudinaryContext cloudName="fung-id">
                 <div className='content-container'>
