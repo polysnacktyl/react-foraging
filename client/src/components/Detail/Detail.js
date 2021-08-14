@@ -9,11 +9,6 @@ function Detail(props) {
     const [upload, setUploads] = useState([props])
     const { id } = useParams()
 
-    useEffect(() => {
-        loadUpload()
-        // eslint-disable-next-line
-    }, [])
-
     function loadUpload() {
         API.getUpload(id)
             .then(res =>
@@ -21,6 +16,10 @@ function Detail(props) {
             .catch(err => console.log(err))
     };
 
+    useEffect(() => {
+        loadUpload()
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <CloudinaryContext >
@@ -28,7 +27,7 @@ function Detail(props) {
                 <div className='detail-container'>
                     <div className='detail-thumbnail'>
                         <div className='detail-image'>
-                            <Image src={upload.imageurl} />
+                            <Image src={upload.imageurl} alt={upload.tags} />
                         </div>
                         <div className='details'>
                             <div className='map'>
@@ -36,6 +35,7 @@ function Detail(props) {
                                     <Map />
                                 </div>
                             </div>
+
                             <p>notes and such will go here soon</p>
                         </div>
                     </div>

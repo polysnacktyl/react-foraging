@@ -123,8 +123,9 @@ router.get("/logout", (req, res) => {
 
 router.post('/upload', async (req, res) => {
   try {
+    const tags = req.body.tags.split(',');
     const fileStr = req.body.data;
-    console.log(req.body.data);
+    console.log(tags);
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
       {
@@ -155,6 +156,7 @@ router.post('/upload', async (req, res) => {
     mongoose.connect('mongodb://localhost/fungID');
     var new_upload = new Upload({
       user: req.body.user,
+      tags: tags,
       created: createdate[0],
       latitude: latitude,
       longitude: longitude,

@@ -4,16 +4,24 @@ import './style.css';
 
 export default function Upload(props) {
     const [fileInputState, setFileInputState] = useState('');
+    const [tagInputState, setTagInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
+    const [tags, setTags] = useState();
     const { state } = useContext(Context);
     const user = state.user;
-
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile(file);
         setFileInputState(e.target.value);
+    
     };
+
+    const handleTagInputChange = (e) => {
+        const tag = e.target.value;
+        setTags(tag);
+        setTagInputState(e.target.value); 
+    }
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
@@ -32,13 +40,13 @@ export default function Upload(props) {
     const uploadImage = async (base64EncodedImage) => {
         try {
             await fetch('http://localhost:3000/auth/upload', {
-
                 method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage, user: user }),
+                body: JSON.stringify({ data: base64EncodedImage, user: user, tags: tags }),
                 headers: { 'Content-Type': 'application/json' },
             });
- 
+
             setFileInputState('');
+            setTagInputState('');
 
             props.loadImages();
 
@@ -58,6 +66,13 @@ export default function Upload(props) {
                     onChange={handleFileInputChange}
                     value={fileInputState}
                     className="form-input" />
+                <input
+                    id='tags'
+                    type='text'
+                    name='tags'
+                    placeholder='tag, tag, tag'
+                    value={tagInputState}
+                    onChange={handleTagInputChange} />
                 <button
                     className="btn"
                     type="submit">

@@ -33,6 +33,12 @@ const uploadSchema = new Schema({
         type: String,
         required: false
     },
+    tags:
+        [{
+            type: String,
+            trim: true, 
+            required: false
+        }]
 
 });
 

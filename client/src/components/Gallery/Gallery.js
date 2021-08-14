@@ -23,7 +23,6 @@ function Gallery() {
         dispatch({
             type: 'fetchSuccess',
             payload: res.data,
-
         })
 
     }
@@ -44,7 +43,7 @@ function Gallery() {
             } catch (error) {
                 await fail(error);
             }
-        }, 200);
+        }, 0);
     }
 
     useEffect(() => {
@@ -73,6 +72,7 @@ function Gallery() {
                                                     src={images.thumbnail}
                                                     latitude={images.latitude}
                                                     longitude={images.longitude}
+                                                    tags={images.tags}
                                                 />
                                             </Link>
                                         </div>
