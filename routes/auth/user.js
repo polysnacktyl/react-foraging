@@ -178,7 +178,6 @@ router.post('/upload', async (req, res) => {
 
 router.get('/mine', async (req, res) => {
   const user = req.query.user;
-  console.log(user);
   try {
     db.Upload
       .find({user: user})
@@ -186,8 +185,16 @@ router.get('/mine', async (req, res) => {
 
   } catch { (err) => res.status(400).json(err.message); }
 
-})
+});
 
+router.get('/detail', async (req, res) => {
+const ID = (req.query._id);
+  try {
+    db.Upload
+    .find({_id: ID})
+    .then(images => res.json(images))
+  } catch { (err) => res.status(400).json(err.message); } 
+});
 
 router.get("/loggedIn", (req, res) => {
   try {

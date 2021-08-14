@@ -12,7 +12,7 @@ function Gallery() {
     const [isLoading, setLoading] = useState(true);
     const [images, setImages] = useState([]);
     const user = state.user;
-    console.log(state.user);
+
     const success = async () => {
         const res = await axios({
             url: 'http://localhost:3000/auth/mine', params: {user: user}
@@ -38,7 +38,6 @@ function Gallery() {
         setTimeout(async () => {
             try {
                 await success();
-                console.log(user);
                 setLoading(false)
             } catch (error) {
                 await fail(error);
@@ -49,7 +48,7 @@ function Gallery() {
     useEffect(() => {
         loadImages()
         //eslint-disable-next-line
-    }, [])
+    }, []);
 
     if (isLoading) {
         return (<div className='loading'>...loading</div>)
