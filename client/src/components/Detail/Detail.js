@@ -16,7 +16,6 @@ function Detail(props) {
 
 
     const success = async () => {
-        console.log(id);
         const res = await axios({
             url: `http://localhost:3000/auth/detail`, params: { _id: idquery }
         })
@@ -46,9 +45,6 @@ function Detail(props) {
             }
         }, 0);
     }
-
-
-
 
     useEffect(() => {
         loadImage()

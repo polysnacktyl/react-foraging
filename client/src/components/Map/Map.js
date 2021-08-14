@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import API from '../../utils/API';
+import React, { useEffect, useState, useContext } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Context } from '../../utils/Reducer';
 import './Map.css';
 
 function Mapp() {
     const [isLoading, setLoading] = useState(true);
-    const [coords, setCoords] = useState();
-    const { id } = useParams();
+    const [latitude, setLatitude] = useState();
+    const [longitude, setLongitude] = useState();
+    const { state } = useContext(Context);
 
     useEffect(() => {
-        API.getUpload(id)
-            .then(res => {
-                setCoords(res.data)
-                setLoading(false);
-            });
+        setLatitude(state.images.latitude);
+        setLongitude(state.images.longitude);
+        setLoading(false);
         // eslint-disable-next-line 
     }, []);
 
@@ -27,14 +25,14 @@ function Mapp() {
         return (
             <div className='mapid' >
                 <MapContainer
-                    center={[coords.latitude, coords.longitude]}
+                    center={[latitude, longitude]}
                     zoom={16}
                     scrollWheelZoom={true}>
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={[coords.latitude, coords.longitude]}>
+                    <Marker position={[latitude, longitude]}>
                         <Popup>
                             popup text
                         </Popup>
