@@ -1,0 +1,30 @@
+.mapid {
+    display        : flex;
+
+}
+
+.leaflet-container {
+    height: 40rem;
+    width : 60rem;
+
+}
+
+.leaflet-container-large {
+    width : 40rem;
+    height: 40rem;
+
+}
+
+.large-map-view {
+    display        : flex;
+    flex-direction : row;
+}
+
+.all-tags {
+    display         : flex;
+    flex-direction  : column;
+    background-color: grey;
+    border-radius   : 15px;
+    width           : 10rem;
+    margin          : 20px;
+}

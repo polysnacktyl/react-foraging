@@ -7,6 +7,7 @@ import Home from './views/Home';
 import Navbar from './components/Navbar/Navbar';
 import Gallery from './components/Gallery/Gallery';
 import Detail from './components/Detail/Detail';
+import LargeMapp from './components/LargeMap/LargeMap';
 
 
 function AppRouter() {
@@ -26,6 +27,7 @@ function AppRouter() {
                 <>
                     <Route exact path='/gallery'><Gallery /></Route>
                     <Route exact path='/detail/:id'><Detail /></Route>
+                    <Route exact path='/map'><LargeMapp /></Route>
                 </>
             )}
         </Router>

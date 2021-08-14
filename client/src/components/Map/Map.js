@@ -7,11 +7,15 @@ function Mapp() {
     const [isLoading, setLoading] = useState(true);
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
+    const [popUp, setPopUp] = useState();
     const { state } = useContext(Context);
 
+    console.log(state.images.tags);
+  
     useEffect(() => {
         setLatitude(state.images.latitude);
         setLongitude(state.images.longitude);
+        setPopUp(state.images.tags);
         setLoading(false);
         // eslint-disable-next-line 
     }, []);
@@ -34,7 +38,7 @@ function Mapp() {
                     />
                     <Marker position={[latitude, longitude]}>
                         <Popup>
-                            popup text
+                           {popUp}
                         </Popup>
                     </Marker>
                 </MapContainer>

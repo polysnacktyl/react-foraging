@@ -14,7 +14,7 @@ export default function Upload(props) {
         const file = e.target.files[0];
         setSelectedFile(file);
         setFileInputState(e.target.value);
-    
+
     };
 
     const handleTagInputChange = (e) => {
@@ -41,9 +41,11 @@ export default function Upload(props) {
         try {
             await fetch('http://localhost:3000/auth/upload', {
                 method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage, user: user, tags: tags }),
+                body: JSON.stringify({ data: base64EncodedImage, user: user, tags: tags}),
                 headers: { 'Content-Type': 'application/json' },
             });
+
+            console.log(user, tags);
 
             setFileInputState('');
             setTagInputState('');

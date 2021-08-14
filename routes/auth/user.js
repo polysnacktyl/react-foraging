@@ -124,8 +124,8 @@ router.get("/logout", (req, res) => {
 router.post('/upload', async (req, res) => {
   try {
     const tags = req.body.tags.split(',');
+    console.log('split', tags);
     const fileStr = req.body.data;
-    console.log(tags);
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
       {
@@ -172,7 +172,7 @@ router.post('/upload', async (req, res) => {
     console.error(err.message);
     res
       .status(503)
-      .json({ err: err });
+      .json({ err: err.message });
   }
 });
 

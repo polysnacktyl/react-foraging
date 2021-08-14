@@ -14,7 +14,6 @@ function Detail(props) {
     const [tags, setTags] = useState([]);
     const idquery = id;
 
-
     const success = async () => {
         const res = await axios({
             url: `http://localhost:3000/auth/detail`, params: { _id: idquery }
@@ -24,7 +23,6 @@ function Detail(props) {
             type: 'fetchSuccess',
             payload: res.data[0]
         })
-
         setImages(res.data[0].imageurl);
         setTags(res.data[0].tags);
     }

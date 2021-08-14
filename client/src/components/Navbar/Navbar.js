@@ -20,6 +20,7 @@ function Navbar() {
       {loggedIn === true && (
         <>
           <Link to='/gallery'>gallery</Link>
+          <Link to='/map'>map</Link>
           <LogOutBtn />
         </>
       )}
