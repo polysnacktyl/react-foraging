@@ -1,5 +1,5 @@
 .mapid {
-    display      : flex;
+    display: flex;
 }
 
 .leaflet-container {
@@ -8,12 +8,6 @@
 
 }
 
-/* .leaflet-container-large {
-    width : 40rem;
-    height: 40rem;
-
-} */
-
 .large-map-view {
     display        : flex;
     flex-direction : row;
@@ -21,10 +15,20 @@
 }
 
 .all-tags {
-    display         : flex;
-    flex-direction  : column;
-    background-color: silver;
-    border-radius   : 15px;
-    width           : 10rem;
-    margin          : 20px;
+    display       : flex;
+    flex-direction: column;
+    border-radius : 15px;
+    width         : 10rem;
+    margin        : 20px;
+}
+
+.all-tags li {
+    background-color: whitesmoke;
+    margin          : 5px;
+    padding         : 5px;
+    border-radius   : 5px;
+}
+
+.all-tags li:hover {
+    cursor: pointer;
 }

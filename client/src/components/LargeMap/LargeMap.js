@@ -21,14 +21,10 @@ function LargeMapp() {
         })
 
         setPoints(res.data);
-        console.log(res.data);
     };
 
-    // const filter = async () => {
-    //     const res = await axios({
-    //         url: 'http://localhost:3000/auth/mine', params: { user: user }
-    //     })
-    // }
+
+
 
     function loadCoords() {
         setTimeout(async () => {
@@ -40,6 +36,11 @@ function LargeMapp() {
             }
         }, 0);
     }
+
+
+    const unique = [...new Set(points.map(item => item.tags[0]))];
+    console.log(unique);
+
 
 
     useEffect(() => {
@@ -58,11 +59,12 @@ function LargeMapp() {
             <div className='content-container'>
                 <div className='large-map-view'>
                     <div className='all-tags'>
-                        {points.length ? (
+                        <h4>tags</h4>
+                        {unique.length ? (
                             <div className='tags-div'>
-                                {points.map((point, i) => ( 
+                                {unique.map((point, i) => (
                                     <div key={i}>
-                                        <button>{point.tags}</button>
+                                        <li>{point}</li>
                                     </div>
                                 ))}
                             </div>
@@ -72,8 +74,8 @@ function LargeMapp() {
                         <div className='leaflet-container-large'>
                             <MapContainer
                                 className='map-container'
-                                center={[points[0].latitude, points[0].longitude]}
-                                zoom={16}
+                                center={[points[1].latitude, points[1].longitude]}
+                                zoom={10}
                                 scrollWheelZoom={true}>
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
