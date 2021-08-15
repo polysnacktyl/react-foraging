@@ -1,6 +1,5 @@
 .mapid {
-    display        : flex;
-
+    display      : flex;
 }
 
 .leaflet-container {
@@ -9,21 +8,22 @@
 
 }
 
-.leaflet-container-large {
+/* .leaflet-container-large {
     width : 40rem;
     height: 40rem;
 
-}
+} */
 
 .large-map-view {
     display        : flex;
     flex-direction : row;
+    justify-content: center;
 }
 
 .all-tags {
     display         : flex;
     flex-direction  : column;
-    background-color: grey;
+    background-color: silver;
     border-radius   : 15px;
     width           : 10rem;
     margin          : 20px;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Context } from '../../utils/Reducer';
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import Map from '../Map/Map';
@@ -7,7 +7,8 @@ import './style.css';
 import axios from 'axios';
 
 function Detail(props) {
-    const { id } = useParams()
+    const { id } = useParams();
+    const history = useHistory();
     const { dispatch } = useContext(Context);
     const [images, setImages] = useState([props])
     const [isLoading, setLoading] = useState(true);
@@ -44,6 +45,21 @@ function Detail(props) {
         }, 0);
     }
 
+    async function deleteImage() {
+        console.log(idquery);
+        try {
+            await axios({
+                method: 'DELETE',
+                url: 'http://localhost:3000/auth/delete',
+                params: { _id: idquery }
+            })
+
+                .then(history.push('/gallery'))
+
+        } catch (err) { console.error(err.message) };
+
+    }
+
     useEffect(() => {
         loadImage()
         // eslint-disable-next-line
@@ -60,6 +76,7 @@ function Detail(props) {
                         <div className='detail-thumbnail'>
                             <div className='detail-image'>
                                 <Image src={images} alt={images.alt} />
+                                <button onClick={deleteImage}>delete</button>
                             </div>
                             <div className='details'>
                                 <div className='map'>

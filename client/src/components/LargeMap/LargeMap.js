@@ -4,7 +4,6 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Context } from '../../utils/Reducer';
 import './LargeMap.css';
 
-
 function LargeMapp() {
     const [isLoading, setLoading] = useState(true);
     const [points, setPoints] = useState([]);
@@ -23,8 +22,13 @@ function LargeMapp() {
 
         setPoints(res.data);
         console.log(res.data);
-
     };
+
+    // const filter = async () => {
+    //     const res = await axios({
+    //         url: 'http://localhost:3000/auth/mine', params: { user: user }
+    //     })
+    // }
 
     function loadCoords() {
         setTimeout(async () => {
@@ -56,9 +60,9 @@ function LargeMapp() {
                     <div className='all-tags'>
                         {points.length ? (
                             <div className='tags-div'>
-                                {points.map((point, i) => (
+                                {points.map((point, i) => ( 
                                     <div key={i}>
-                                        <p>{point.tags}</p>
+                                        <button>{point.tags}</button>
                                     </div>
                                 ))}
                             </div>
@@ -77,7 +81,7 @@ function LargeMapp() {
                                 />
 
                                 {points.map((point, i) => (
-                                    <Marker position={[point.latitude, point.longitude]}>
+                                    <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
                                             {point.tags}
                                         </Popup>

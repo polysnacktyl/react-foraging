@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary').v2;
 const Upload = require('../../models/uploads');
 const mongoose = require('mongoose');
+const { find } = require("../../models/user");
 db = require('../../models');
 
 router.post("/", async (req, res) => {
@@ -176,11 +177,19 @@ router.post('/upload', async (req, res) => {
   }
 });
 
+router.delete('/delete', async (req, res) => {
+  (console.log(req.query._id));
+  try {
+    await db.Upload
+      .findByIdAndDelete(req.query._id)
+  } catch (err) { console.error(err); }
+});
+
 router.get('/mine', async (req, res) => {
   const user = req.query.user;
   try {
     db.Upload
-      .find({user: user})
+      .find({ user: user })
       .then(images => res.json(images))
 
   } catch { (err) => res.status(400).json(err.message); }
@@ -188,12 +197,12 @@ router.get('/mine', async (req, res) => {
 });
 
 router.get('/detail', async (req, res) => {
-const ID = (req.query._id);
+  const ID = (req.query._id);
   try {
     db.Upload
-    .find({_id: ID})
-    .then(images => res.json(images))
-  } catch { (err) => res.status(400).json(err.message); } 
+      .find({ _id: ID })
+      .then(images => res.json(images))
+  } catch { (err) => res.status(400).json(err.message); }
 });
 
 router.get("/loggedIn", (req, res) => {
