@@ -71,7 +71,7 @@ function LargeMapp() {
                             <MapContainer
                                 className='map-container'
                                 center={[points[1].latitude, points[1].longitude]}
-                                zoom={10}
+                                zoom={7}
                                 scrollWheelZoom={true}>
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -81,7 +81,7 @@ function LargeMapp() {
                                 {points.map((point, i) => (
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
-                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} />
+                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} alt={point.alt}/>
                                             <p className='popup-text'>{point.tags[0]}</p>
                                         </Popup>
                                     </Marker>

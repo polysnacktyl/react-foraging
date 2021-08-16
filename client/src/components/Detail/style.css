@@ -1,46 +1,99 @@
 .detail-container {
     display        : flex;
-    flex-direction : row;
+    flex-direction : column;
     flex-wrap      : wrap;
     justify-content: space-evenly;
-    align-items    : stretch;
-    width          : 95vw;
-    height         : 80vh;
+    align-items    : center;
     margin-top     : 70px;
+}
 
+.notes {
+    display        : flex;
+    flex-direction : row;
+    align-items    : flex-start;
+    justify-content: center;
+    margin-top     : 100px;
+    margin-left    : 100px;
+}
+
+.top-row {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : stretch;
 }
 
 .details {
-    border-radius: 10px;
-    text-align   : left;
-    margin       : 7px;
-    padding      : 4px;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    border-radius : 10px;
+    text-align    : left;
+    margin        : 7px;
+    padding       : 4px;
 }
 
-.detail-image {
+.detail-thumbnail img {
     align-content: center;
-    border-radius: 10px;
-    margin       : 15px;
-}
-
-.detail-image img {
-    max-width    : 43rem;
+    max-width    : 40rem;
     max-height   : 35rem;
     border-radius: 10px;
-
 }
 
 .detail-thumbnail {
-    display        : flex;
-    flex-direction : row;
-    flex-wrap      : wrap;
-    width          : 90vw;
-    justify-content: space-evenly;
-    align-content  : center;
-
+    display       : flex;
+    flex-direction: row;
+    flex-wrap     : wrap;
+    align-content : center;
 }
 
 .details p {
     margin-top: 60px;
     text-align: center;
+}
+
+.detail-map {
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    height         : 30rem;
+    width          : 50rem;
+    overflow       : clip;
+    margin-top     : 100px;
+}
+
+.title {
+    display        : flex;
+    justify-content: flex-start;
+    text-align     : left;
+}
+
+.detail-title {
+    display      : flex;
+    border-radius: 10px;
+    align-items  : center;
+    margin-bottom: 0;
+}
+
+.delete-image {
+    display       : flex;
+    flex-direction: column;
+    text-align    : center;
+    font-size     : xx-small;
+    margin-top    : 0;
+}
+
+.delete-image button {
+    margin-top   : 20px;
+    margin-bottom: 0;
+}
+
+.delete-image p {
+    margin-top: 5px;
+}
+
+.title h5 {
+    display: flex !important;
+    padding: 0;
+    margin : 0 !important;
 }

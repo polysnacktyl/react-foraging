@@ -11,7 +11,7 @@ function Mapp() {
     const { state } = useContext(Context);
 
     console.log(state.images.tags);
-  
+
     useEffect(() => {
         setLatitude(state.images.latitude);
         setLongitude(state.images.longitude);
@@ -30,7 +30,7 @@ function Mapp() {
             <div className='mapid' >
                 <MapContainer
                     center={[latitude, longitude]}
-                    zoom={16}
+                    zoom={10}
                     scrollWheelZoom={true}>
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -38,7 +38,7 @@ function Mapp() {
                     />
                     <Marker position={[latitude, longitude]}>
                         <Popup>
-                           {popUp}
+                            {popUp}
                         </Popup>
                     </Marker>
                 </MapContainer>

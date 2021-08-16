@@ -73,33 +73,50 @@ function Detail(props) {
             <CloudinaryContext >
                 <div className='content-container'>
                     <div className='detail-container'>
-                        <div className='detail-thumbnail'>
-                            <div className='detail-image'>
-                                <Image src={images} alt={images.alt} />
-                                <button onClick={deleteImage}>delete</button>
-                            </div>
+                        <div className='top-row'>
                             <div className='details'>
-                                <div className='map'>
-                                    <div className='mapid'>
-                                        <Map />
-                                    </div>
+                                <div className='detail-title'>
+                                    {tags.length ? (
+                                        <div key={tags.id} className='title'>
+                                            <ul>
+                                                {tags.map((tag, i) => (
+                                                    <li key={i} className='tag-one'><h5 className='image-title'>{tag}</h5></li>
+
+                                                ))}
+
+                                            </ul>
+                                        </div>
+
+                                    ) : (
+                                        <div>
+                                            <p>no tags</p>
+                                        </div>)}
+                                </div>
+                                <div className='detail-thumbnail'>
+
+                                    <Image src={images} alt={images.alt} />
+
                                 </div>
 
-                                {tags.length ? (
-                                    <div key={tags.id} className='tags'>
-                                        <ul>
-                                            {tags.map((tag, i) => (
-                                                <li key={i} className='tag-one'>{tag}</li>))}
-                                        </ul>
-                                    </div>) : (
-                                    <div><p>no tags</p></div>)}
-
                             </div>
-                        </div>
+                            <div className='notes'>
+                                <p> user-entered notes display here.</p>
+                            </div>
 
+
+                        </div>
+                        <div className='detail-map'>
+                            <Map />
+                        </div>
+                        <div className='delete-image'>
+                            <button onClick={deleteImage}>delete this image from my collection</button>
+                            <p className='delete-warning'>this cannot be undone</p>
+                        </div>
                     </div>
 
                 </div>
+
+
             </CloudinaryContext >
 
 

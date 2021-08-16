@@ -1,12 +1,14 @@
-.mapid {
+.map {
     display: flex;
+    overflow:scroll;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
 .leaflet-container {
     height: 40rem;
     width : 60rem;
-    object-fit: scale-down;
-
 }
 
 .large-map-view {
@@ -35,7 +37,7 @@
 }
 
 .popup-text p {
-    display: flex !important;
+    display       : flex !important;
     flex-direction: row;
-    text-align: center !important;
+    text-align    : center !important;
 }
