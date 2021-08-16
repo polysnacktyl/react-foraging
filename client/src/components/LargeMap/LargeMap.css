@@ -5,6 +5,7 @@
 .leaflet-container {
     height: 40rem;
     width : 60rem;
+    object-fit: scale-down;
 
 }
 
@@ -31,4 +32,10 @@
 
 .all-tags li:hover {
     cursor: pointer;
+}
+
+.popup-text p {
+    display: flex !important;
+    flex-direction: row;
+    text-align: center !important;
 }

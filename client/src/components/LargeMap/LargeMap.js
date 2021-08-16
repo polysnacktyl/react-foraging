@@ -23,9 +23,6 @@ function LargeMapp() {
         setPoints(res.data);
     };
 
-
-
-
     function loadCoords() {
         setTimeout(async () => {
             try {
@@ -36,7 +33,6 @@ function LargeMapp() {
             }
         }, 0);
     }
-
 
     const unique = [...new Set(points.map(item => item.tags[0]))];
     console.log(unique);
@@ -85,7 +81,8 @@ function LargeMapp() {
                                 {points.map((point, i) => (
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
-                                            {point.tags}
+                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} />
+                                            <p className='popup-text'>{point.tags[0]}</p>
                                         </Popup>
                                     </Marker>
                                 ))}
