@@ -9,11 +9,13 @@ import axios from 'axios';
 function Detail(props) {
     const { id } = useParams();
     const history = useHistory();
-    const { dispatch } = useContext(Context);
+    const { state, dispatch } = useContext(Context);
     const [images, setImages] = useState([props])
     const [isLoading, setLoading] = useState(true);
     const [tags, setTags] = useState([]);
+    const [date, setDate] = useState([]);
     const idquery = id;
+
 
     const success = async () => {
         const res = await axios({
@@ -26,13 +28,21 @@ function Detail(props) {
         })
         setImages(res.data[0].imageurl);
         setTags(res.data[0].tags);
+        const messyDate = (res.data[0].created.split(':'));
+        setDate(messyDate[1] + '/' + messyDate[2] + '/' + messyDate[0]);
+
     }
+    console.log(date);
 
     const fail = (error) =>
         dispatch({
             type: 'fetchFail',
             payload: { error: error.message }
         });
+
+    function handleEditButtonClick(e) {
+        console.log(state.images._id);
+    }
 
     function loadImage() {
         setTimeout(async () => {
@@ -81,9 +91,7 @@ function Detail(props) {
                                             <ul>
                                                 {tags.map((tag, i) => (
                                                     <li key={i} className='tag-one'><h5 className='image-title'>{tag}</h5></li>
-
                                                 ))}
-
                                             </ul>
                                         </div>
 
@@ -100,7 +108,16 @@ function Detail(props) {
 
                             </div>
                             <div className='notes'>
-                                <p> user-entered notes display here.</p>
+                                <div className='edit-button'>
+                                    <button onClick={handleEditButtonClick}>***</button>
+                                </div>
+
+                                <ul>
+                                    <li><h5>date: </h5>{date}</li>
+                                    <li><h5>name: </h5>{state.images.tags}</li>
+                                    <li><h5>notes:</h5>...no notes yet</li>
+                                </ul>
+
                             </div>
 
 

@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext, useMemo } from 'react';
-import { Map, MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Context } from '../../utils/Reducer';
 import './LargeMap.css';
 
@@ -14,8 +15,6 @@ function LargeMapp(props) {
     const { state, dispatch } = useContext(Context);
     const user = state.user;
     const unique = [...new Set(points.map(item => item.tags[0]))];
-
-    console.log(uniquePoints.length);
 
     const success = async () => {
         const res = await axios({
@@ -32,8 +31,6 @@ function LargeMapp(props) {
         setUniquePoints(unique);
         setCenter([res.data[0].latitude, res.data[0].longitude]);
         setZoom(15);
-
-
     };
 
     async function handleChangePoints(e) {
@@ -49,6 +46,7 @@ function LargeMapp(props) {
 
     function handleClearSelection() {
         setSelectedPoints(points);
+        setCenter([points[0].latitude, points[0].longitude]);
     }
 
     function loadCoords() {
@@ -69,7 +67,7 @@ function LargeMapp(props) {
 
     console.log(
         'points:', points.length,
-        'uniquePoints:', unique.length,
+        'uniquePoints:', uniquePoints.length,
         'selectedPoints:', selectedPoints.length,
         'centerCoords:', [center]
     );
@@ -119,17 +117,17 @@ function LargeMapp(props) {
                                 {selectedPoints.map((point, i) => (
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
-                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} alt={point.alt} />
-                                            <p className='popup-text'>{point.tags[0]}</p>
+                                            <img src={point.thumbnail} style={{ width: 300, borderRadius: 10 }} alt={point.alt} />
+                                            <Link to={`/detail/${point._id}`}><p className='popup-text'>{point.tags[0]}</p></Link>
                                         </Popup>
                                     </Marker>
                                 ))}
 
                             </MapContainer>
-                        </div>
                     </div>
                 </div>
             </div>
+            </div >
         )
     };
 };
