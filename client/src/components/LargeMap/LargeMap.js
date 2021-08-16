@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState, useContext } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
+import { Map, MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Context } from '../../utils/Reducer';
 import './LargeMap.css';
 
@@ -9,9 +9,13 @@ function LargeMapp(props) {
     const [points, setPoints] = useState([]);
     const [uniquePoints, setUniquePoints] = useState([]);
     const [selectedPoints, setSelectedPoints] = useState([]);
+    const [center, setCenter] = useState([]);
+    const [zoom, setZoom] = useState('');
     const { state, dispatch } = useContext(Context);
     const user = state.user;
     const unique = [...new Set(points.map(item => item.tags[0]))];
+
+    console.log(uniquePoints.length);
 
     const success = async () => {
         const res = await axios({
@@ -26,8 +30,11 @@ function LargeMapp(props) {
         setPoints(res.data);
         setSelectedPoints(res.data);
         setUniquePoints(unique);
+        setCenter([res.data[0].latitude, res.data[0].longitude]);
+        setZoom(15);
+
+
     };
-  
 
     async function handleChangePoints(e) {
         const thisMushroom = e.target.innerHTML;
@@ -37,8 +44,12 @@ function LargeMapp(props) {
 
         setSelectedPoints(res.data);
         setUniquePoints(unique);
-    }
+        setCenter([res.data[0].latitude, res.data[0].longitude]);
+    };
 
+    function handleClearSelection() {
+        setSelectedPoints(points);
+    }
 
     function loadCoords() {
         setTimeout(async () => {
@@ -51,16 +62,18 @@ function LargeMapp(props) {
         }, 0);
     }
 
-
     useEffect(() => {
         loadCoords();
         // eslint-disable-next-line 
     }, []);
 
-    console.log('points:', points);
-    console.log('unique points(const unique):', unique);
-    console.log('selectedPoints:', selectedPoints);
-    console.log('unique points(setUniquePoints):', uniquePoints);
+    console.log(
+        'points:', points.length,
+        'uniquePoints:', unique.length,
+        'selectedPoints:', selectedPoints.length,
+        'centerCoords:', [center]
+    );
+
 
     if (isLoading) {
         return (
@@ -86,13 +99,17 @@ function LargeMapp(props) {
                                 <p>nothin here</p>
                             </div>
                         )}
+                        <div className='clear-selection'>
+                            <li onClick={handleClearSelection}>clear selection</li>
+                        </div>
                     </div>
                     <div className='mapid' >
                         <div className='leaflet-container-large'>
                             <MapContainer
+                                key={JSON.stringify(center)}
                                 className='map-container'
-                                center={[selectedPoints[0].latitude, selectedPoints[0].longitude]}
-                                zoom={7}
+                                center={center}
+                                zoom={zoom}
                                 scrollWheelZoom={true}>
                                 <TileLayer
                                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
