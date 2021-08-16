@@ -196,6 +196,17 @@ router.get('/mine', async (req, res) => {
 
 });
 
+router.get('/locate', async (req, res) => {
+  const user = req.query.user;
+  const mushroom = req.query.tags;
+  console.log(user, mushroom);
+  try {
+    db.Upload
+      .find({ $and: [{ user: user }, { tags: mushroom }] })
+      .then(theseFungi => res.json(theseFungi))
+  } catch { (err) => res.status(400).json(err.message); }
+})
+
 router.get('/detail', async (req, res) => {
   const ID = (req.query._id);
   try {

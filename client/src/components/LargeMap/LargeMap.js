@@ -4,11 +4,13 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Context } from '../../utils/Reducer';
 import './LargeMap.css';
 
-function LargeMapp() {
+function LargeMapp(props) {
     const [isLoading, setLoading] = useState(true);
     const [points, setPoints] = useState([]);
+    const [selectedPoints, setSelectedPoints] = useState([]);
     const { state, dispatch } = useContext(Context);
     const user = state.user;
+    const unique = [...new Set(points.map(item => item.tags[0]))];
 
     const success = async () => {
         const res = await axios({
@@ -22,6 +24,17 @@ function LargeMapp() {
 
         setPoints(res.data);
     };
+    console.log(selectedPoints);
+
+
+    async function handleChangePoints(e) {
+        const thisMushroom = e.target.innerHTML;
+        console.log(thisMushroom);
+        const res = await axios({
+            url: 'http://localhost:3000/auth/locate', params: { user: user, tags: thisMushroom }
+        })
+        setSelectedPoints(res.data);
+    }
 
     function loadCoords() {
         setTimeout(async () => {
@@ -33,9 +46,6 @@ function LargeMapp() {
             }
         }, 0);
     }
-
-    const unique = [...new Set(points.map(item => item.tags[0]))];
-    console.log(unique);
 
 
 
@@ -60,7 +70,7 @@ function LargeMapp() {
                             <div className='tags-div'>
                                 {unique.map((point, i) => (
                                     <div key={i}>
-                                        <li>{point}</li>
+                                        <li onClick={handleChangePoints}>{point}</li>
                                     </div>
                                 ))}
                             </div>
@@ -70,7 +80,7 @@ function LargeMapp() {
                         <div className='leaflet-container-large'>
                             <MapContainer
                                 className='map-container'
-                                center={[points[1].latitude, points[1].longitude]}
+                                center={[points[0].latitude, points[0].longitude]}
                                 zoom={7}
                                 scrollWheelZoom={true}>
                                 <TileLayer
@@ -81,7 +91,7 @@ function LargeMapp() {
                                 {points.map((point, i) => (
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
-                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} alt={point.alt}/>
+                                            <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} alt={point.alt} />
                                             <p className='popup-text'>{point.tags[0]}</p>
                                         </Popup>
                                     </Marker>
