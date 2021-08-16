@@ -7,6 +7,7 @@ import './LargeMap.css';
 function LargeMapp(props) {
     const [isLoading, setLoading] = useState(true);
     const [points, setPoints] = useState([]);
+    const [uniquePoints, setUniquePoints] = useState([]);
     const [selectedPoints, setSelectedPoints] = useState([]);
     const { state, dispatch } = useContext(Context);
     const user = state.user;
@@ -23,18 +24,21 @@ function LargeMapp(props) {
         })
 
         setPoints(res.data);
+        setSelectedPoints(res.data);
+        setUniquePoints(unique);
     };
-    console.log(selectedPoints);
-
+  
 
     async function handleChangePoints(e) {
         const thisMushroom = e.target.innerHTML;
-        console.log(thisMushroom);
         const res = await axios({
             url: 'http://localhost:3000/auth/locate', params: { user: user, tags: thisMushroom }
         })
+
         setSelectedPoints(res.data);
+        setUniquePoints(unique);
     }
+
 
     function loadCoords() {
         setTimeout(async () => {
@@ -48,12 +52,15 @@ function LargeMapp(props) {
     }
 
 
-
     useEffect(() => {
         loadCoords();
         // eslint-disable-next-line 
     }, []);
 
+    console.log('points:', points);
+    console.log('unique points(const unique):', unique);
+    console.log('selectedPoints:', selectedPoints);
+    console.log('unique points(setUniquePoints):', uniquePoints);
 
     if (isLoading) {
         return (
@@ -74,13 +81,17 @@ function LargeMapp(props) {
                                     </div>
                                 ))}
                             </div>
-                        ) : (<div><p>nothin here</p></div>)}
+                        ) : (
+                            <div>
+                                <p>nothin here</p>
+                            </div>
+                        )}
                     </div>
                     <div className='mapid' >
                         <div className='leaflet-container-large'>
                             <MapContainer
                                 className='map-container'
-                                center={[points[0].latitude, points[0].longitude]}
+                                center={[selectedPoints[0].latitude, selectedPoints[0].longitude]}
                                 zoom={7}
                                 scrollWheelZoom={true}>
                                 <TileLayer
@@ -88,7 +99,7 @@ function LargeMapp(props) {
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
 
-                                {points.map((point, i) => (
+                                {selectedPoints.map((point, i) => (
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
                                             <img src={point.thumbnail} style={{ width: 200, borderRadius: 10 }} alt={point.alt} />
