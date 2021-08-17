@@ -217,16 +217,19 @@ router.get('/detail', async (req, res) => {
 });
 
 router.put('/edit', async (req, res) => {
-  const user = req.body.user;
-  const tags = req.query.tags;
+  const tags = req.body.tags;
+  const image = req.body._id;
+  console.log(req.body);
+  if (req.body.tags.length == 0) { return };
   try {
     db.Upload
-    console.log(user, tags);
-    // .find({ $and: [{ user: user }, { tags: tags }] })
-    // .then(edits => res.json(edits))
+      .findByIdAndUpdate({ _id: image }, { tags: tags })
+      .then(edits => res.json(edits))
+
   } catch {
     (err) => res.status(400).json(err.message)
   }
+
 });
 
 router.get("/loggedIn", (req, res) => {

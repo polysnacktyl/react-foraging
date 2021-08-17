@@ -10,8 +10,6 @@ function Mapp() {
     const [popUp, setPopUp] = useState();
     const { state } = useContext(Context);
 
-    console.log(state.images.tags);
-
     useEffect(() => {
         setLatitude(state.images.latitude);
         setLongitude(state.images.longitude);

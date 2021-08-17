@@ -4,7 +4,7 @@ import TriggerButton from './ModalButton';
 
 
 export class Container extends Component {
-  state = { isShown: false };
+  state = { isShown: false, tags: '', user: this.props.user };
   showModal = () => {
     this.setState({ isShown: true }, () => {
       this.closeButton.focus();
@@ -16,10 +16,10 @@ export class Container extends Component {
     this.TriggerButton.focus();
     this.toggleScrollLock();
   };
-  onKeyDown = (event) => {
-    if (event.keyCode === 27) {
-      this.closeModal();
-    }
+  handleEdit = (event) => {
+    this.setState({ tags: event.target.value });
+    console.log(this.state.tags);
+
   };
   onClickOutside = (event) => {
     if (this.modal && this.modal.contains(event.target)) return;
@@ -43,9 +43,8 @@ export class Container extends Component {
             modalRef={(n) => (this.modal = n)}
             buttonRef={(n) => (this.closeButton = n)}
             closeModal={this.closeModal}
-            onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
-            onKeyDown={this.handleNewInfo}
+            onChange={this.handleEdit}
           />
         ) : null}
       </React.Fragment>

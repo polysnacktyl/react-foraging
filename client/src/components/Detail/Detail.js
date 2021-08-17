@@ -33,7 +33,6 @@ function Detail(props) {
         setDate(messyDate[1] + '/' + messyDate[2] + '/' + messyDate[0]);
 
     }
-    console.log(date);
 
     const fail = (error) =>
         dispatch({
@@ -41,9 +40,7 @@ function Detail(props) {
             payload: { error: error.message }
         });
 
-    function handleEditButtonClick(e) {
-        console.log(state.images._id);
-    }
+
 
     function loadImage() {
         setTimeout(async () => {
@@ -110,7 +107,7 @@ function Detail(props) {
                             </div>
                             <div className='notes'>
                                 <div className='edit-button'>
-                                    <MegaEdit submit={handleEditButtonClick}/>
+                                    <MegaEdit />
                                 </div>
 
                                 <ul>

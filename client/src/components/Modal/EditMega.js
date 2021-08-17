@@ -6,38 +6,38 @@ import './Modal.css';
 
 const MegaEdit = (props) => {
   const { state } = useContext(Context);
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState('');
   const triggerText = 'edit information';
   const user = state.user;
+  const image = state.images._id;
 
-
-  const options = {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ user: user, tags: tags })
-  }
-
-  function handleNewInfo(e) {
-    e.preventDefault(e);
-    setTags(e.target[0].value);
-  }
-  console.log(tags);
 
   const onSubmit = async (e) => {
     e.preventDefault(e);
 
-    (console.log(tags))
-      // .then(fetch('http://localhost:3000/auth/edit',
-      //   options))
+    setTags(e.target[0].value);
 
-      // .then(console.log(e.target[0].value, state))
-
-      // .catch(err => console.log(err.message))
   };
+
+
+
+  const axiosEdit = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/auth/edit', {
+        method: 'PUT',
+        body: JSON.stringify({ tags: tags, user: user, _id: image }),
+        headers: { 'Content-Type': 'application/json' }
+      })
+      console.log(res.json());
+
+    } catch (err) { console.log(err.message) }
+  }
+  axiosEdit();
+
 
   return (
     <div className="App">
-      <Container triggerText={triggerText} onSubmit={onSubmit} onKeyDown={handleNewInfo} />
+      <Container triggerText={triggerText} user={state.user} onSubmit={onSubmit} />
     </div>
   );
 };
