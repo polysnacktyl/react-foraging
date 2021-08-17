@@ -107,7 +107,7 @@ function Detail(props) {
                             </div>
                             <div className='notes'>
                                 <div className='edit-button'>
-                                    <MegaEdit />
+                                    <MegaEdit loadImage={loadImage}/>
                                 </div>
 
                                 <ul>

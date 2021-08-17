@@ -17,9 +17,7 @@ export class Container extends Component {
     this.toggleScrollLock();
   };
   handleEdit = (event) => {
-    this.setState({ tags: event.target.value });
-    console.log(this.state.tags);
-
+    this.setState({ tags: event.target.value })
   };
   onClickOutside = (event) => {
     if (this.modal && this.modal.contains(event.target)) return;

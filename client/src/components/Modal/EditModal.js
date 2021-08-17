@@ -40,7 +40,7 @@ export const EditModal = ({
             </svg>
           </button>
           <div className="modal-body">
-            <EditForm onSubmit={onSubmit} onKeyDown={onKeyDown} onChange={onChange}/>
+            <EditForm onSubmit={onSubmit} onKeyDown={onKeyDown} onChange={onChange} closeModal={closeModal} />
           </div>
         </div>
       </aside>

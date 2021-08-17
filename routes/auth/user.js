@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary').v2;
 const Upload = require('../../models/uploads');
 const mongoose = require('mongoose');
-const { find } = require("../../models/user");
 db = require('../../models');
 
 router.post("/", async (req, res) => {
@@ -219,16 +218,18 @@ router.get('/detail', async (req, res) => {
 router.put('/edit', async (req, res) => {
   const tags = req.body.tags;
   const image = req.body._id;
-  console.log(req.body);
+
   if (req.body.tags.length == 0) { return };
   try {
-    db.Upload
-      .findByIdAndUpdate({ _id: image }, { tags: tags })
-      .then(edits => res.json(edits))
+    await db.Upload
+      .findByIdAndUpdate(image, { tags: tags }, { new: true })
+      .then(image => res.send(image))
+      console.log(req.body)
 
-  } catch {
-    (err) => res.status(400).json(err.message)
-  }
+
+  } catch { (err) => res.status(400).json(err.message); }
+
+
 
 });
 

@@ -8,32 +8,30 @@ const MegaEdit = (props) => {
   const { state } = useContext(Context);
   const [tags, setTags] = useState('');
   const triggerText = 'edit information';
-  const user = state.user;
   const image = state.images._id;
 
 
   const onSubmit = async (e) => {
     e.preventDefault(e);
-
     setTags(e.target[0].value);
 
   };
 
-
-
-  const axiosEdit = async () => {
+  const axiosEdit = async (props) => {
     try {
       const res = await fetch('http://localhost:3000/auth/edit', {
         method: 'PUT',
-        body: JSON.stringify({ tags: tags, user: user, _id: image }),
+        body: JSON.stringify({ tags: tags, _id: image }),
         headers: { 'Content-Type': 'application/json' }
       })
-      console.log(res.json());
+      const data = await res.json()
+      setTags(data.tags[0])
+
 
     } catch (err) { console.log(err.message) }
+    console.log(tags);
   }
   axiosEdit();
-
 
   return (
     <div className="App">
