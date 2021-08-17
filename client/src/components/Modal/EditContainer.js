@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal } from './Modal';
+import { EditModal } from './EditModal';
 import TriggerButton from './ModalButton';
 
 
@@ -38,13 +38,14 @@ export class Container extends Component {
           triggerText={this.props.triggerText}
         />
         {this.state.isShown ? (
-          <Modal
+          <EditModal
             onSubmit={this.props.onSubmit}
             modalRef={(n) => (this.modal = n)}
             buttonRef={(n) => (this.closeButton = n)}
             closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
+            onKeyDown={this.handleNewInfo}
           />
         ) : null}
       </React.Fragment>

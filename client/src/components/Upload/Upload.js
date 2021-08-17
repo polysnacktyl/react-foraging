@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../utils/Reducer';
+import MegaUpload from '../Modal/UploadMega';
 import './style.css';
 
 export default function Upload(props) {
@@ -60,7 +61,17 @@ export default function Upload(props) {
     return (
 
         <div className='image-upload'>
-            <form onSubmit={handleSubmitFile} className="image-form">
+            <MegaUpload 
+            setFileInputState={setFileInputState} 
+            fileInputState={fileInputState}
+            setTagInputState={setTagInputState}
+            tagInputState={tagInputState}
+            handleTagInputChange={handleTagInputChange}
+            handleFileInputChange={handleFileInputChange}
+            setSelectedFile={setSelectedFile}
+            handleSubmitFile={handleSubmitFile}
+            />
+            {/* <form onSubmit={handleSubmitFile} className="image-form">
                 <input
                     id="fileInput"
                     type="file"
@@ -80,7 +91,7 @@ export default function Upload(props) {
                     type="submit">
                     Submit
                 </button>
-            </form>
+            </form> */}
         </div>
 
     );

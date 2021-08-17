@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { Context } from '../../utils/Reducer';
 import { Image, CloudinaryContext } from 'cloudinary-react';
+import MegaEdit from '../Modal/EditMega';
 import Map from '../Map/Map';
 import './style.css';
 import axios from 'axios';
@@ -109,7 +110,7 @@ function Detail(props) {
                             </div>
                             <div className='notes'>
                                 <div className='edit-button'>
-                                    <button onClick={handleEditButtonClick}>***</button>
+                                    <MegaEdit submit={handleEditButtonClick}/>
                                 </div>
 
                                 <ul>
@@ -117,6 +118,7 @@ function Detail(props) {
                                     <li><h5>name: </h5>{state.images.tags}</li>
                                     <li><h5>notes:</h5>...no notes yet</li>
                                 </ul>
+                                
 
                             </div>
 

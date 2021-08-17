@@ -1,17 +1,19 @@
 import React from 'react';
 
-export const Form = ({ onSubmit }) => {
+export const EditForm = ({ onSubmit }) => {
+
   return (
     <form onSubmit={onSubmit}>
       <div className="form-group">
-        <input type='file' />
+        <label>Notes: </label><input type='text' placeholder='new notes'/><br/>
+        <label>Names: </label><input type='text' placeholder='new name' />
       </div>
       <div className="form-group">
         <button className="form-control btn btn-primary" type="submit">
-          Submit
+          save
         </button>
       </div>
     </form>
   );
 };
-export default Form;
+export default EditForm;

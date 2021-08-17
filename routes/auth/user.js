@@ -216,6 +216,19 @@ router.get('/detail', async (req, res) => {
   } catch { (err) => res.status(400).json(err.message); }
 });
 
+router.put('/edit', async (req, res) => {
+  const user = req.body.user;
+  const tags = req.query.tags;
+  try {
+    db.Upload
+    console.log(user, tags);
+    // .find({ $and: [{ user: user }, { tags: tags }] })
+    // .then(edits => res.json(edits))
+  } catch {
+    (err) => res.status(400).json(err.message)
+  }
+});
+
 router.get("/loggedIn", (req, res) => {
   try {
     const token = req.cookies.token;
