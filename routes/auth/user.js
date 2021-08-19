@@ -219,13 +219,10 @@ router.put('/edit', async (req, res) => {
   const tags = req.body.tags;
   const image = req.body._id;
 
-  if (req.body.tags.length == 0) { return };
   try {
     await db.Upload
       .findByIdAndUpdate(image, { tags: tags }, { new: true })
       .then(image => res.send(image))
-      console.log(req.body)
-
 
   } catch { (err) => res.status(400).json(err.message); }
 

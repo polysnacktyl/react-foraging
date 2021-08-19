@@ -33,13 +33,22 @@ const uploadSchema = new Schema({
         type: String,
         required: false
     },
-    tags:
-        [{
+    name: {
+        type: String,
+        required: false,
+        trim: true
+    },
+    tags: [
+        {
             type: String,
-            trim: true, 
+            trim: true,
             required: false
-        }]
-
+        }
+    ],
+    notes: {
+        type: String,
+        required: false
+    }
 });
 
 const Upload = mongoose.model('Upload', uploadSchema);
