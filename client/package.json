@@ -14,7 +14,9 @@
         "if-env": "^1.0.4",
         "leaflet": "^1.7.1",
         "react": "^16.13.1",
+        "react-bootstrap": "^1.6.1",
         "react-dom": "^16.13.1",
+        "react-file-base64": "^1.0.3",
         "react-leaflet": ">=3.1.0 <3.2.0 || ^3.2.1",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^3.4.3"
