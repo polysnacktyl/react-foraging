@@ -70,3 +70,8 @@
     align-items     : center;
     align-content   : center;
 }
+
+.image-upload-dropdown {
+    display: flex;
+
+}

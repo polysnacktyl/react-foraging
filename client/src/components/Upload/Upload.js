@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../../utils/Reducer';
-import MegaUpload from '../Modal/UploadMega';
+import { Button, Form } from 'react-bootstrap';
 import './style.css';
 
 export default function Upload(props) {
@@ -61,37 +61,33 @@ export default function Upload(props) {
     return (
 
         <div className='image-upload'>
-            <MegaUpload 
-            setFileInputState={setFileInputState} 
-            fileInputState={fileInputState}
-            setTagInputState={setTagInputState}
-            tagInputState={tagInputState}
-            handleTagInputChange={handleTagInputChange}
-            handleFileInputChange={handleFileInputChange}
-            setSelectedFile={setSelectedFile}
-            handleSubmitFile={handleSubmitFile}
-            />
-            {/* <form onSubmit={handleSubmitFile} className="image-form">
-                <input
-                    id="fileInput"
-                    type="file"
-                    name="image"
-                    onChange={handleFileInputChange}
-                    value={fileInputState}
-                    className="form-input" />
-                <input
-                    id='tags'
-                    type='text'
-                    name='tags'
-                    placeholder='tag, tag, tag'
-                    value={tagInputState}
-                    onChange={handleTagInputChange} />
-                <button
-                    className="btn"
-                    type="submit">
-                    Submit
-                </button>
-            </form> */}
+            <Form onSubmit={handleSubmitFile} className="image-form">
+                <>
+                    <Form.Control
+                        id="fileInput"
+                        type="file"
+                        name="image"
+                        onChange={handleFileInputChange}
+                        value={fileInputState}
+                        className="form-input" />
+                    <Form.Control
+                        id='tags'
+                        type='text'
+                        name='tags'
+                        placeholder='name that fungus'
+                        value={tagInputState}
+                        onChange={handleTagInputChange} />
+                    <div className='upload-button'>
+                        <Button
+                            size="sm"
+                            className='image-submit'
+                            type='submit'>
+                            upload
+                        </Button>
+                    </div>
+                </>
+
+            </Form>
         </div>
 
     );

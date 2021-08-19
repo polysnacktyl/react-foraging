@@ -7,6 +7,7 @@ function Mapp() {
     const [isLoading, setLoading] = useState(true);
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
+    const [coords, setCoords] = useState();
     const [popUp, setPopUp] = useState();
     const { state } = useContext(Context);
 
@@ -15,8 +16,10 @@ function Mapp() {
         setLongitude(state.images.longitude);
         setPopUp(state.images.tags);
         setLoading(false);
+        setCoords(state.images.latitude + ',' + state.images.longitude);
         // eslint-disable-next-line 
     }, []);
+    console.log(coords)
 
     if (isLoading) {
         return (
@@ -28,7 +31,7 @@ function Mapp() {
             <div className='mapid' >
                 <MapContainer
                     center={[latitude, longitude]}
-                    zoom={10}
+                    zoom={17}
                     scrollWheelZoom={true}>
                     <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -36,12 +39,13 @@ function Mapp() {
                     />
                     <Marker position={[latitude, longitude]}>
                         <Popup>
-                            {popUp}
+                            <li>{popUp}</li>
+                            <a href={`https://www.google.com/maps?q=${coords}`} target={'_blank'} rel={'noopener noreferrer'}>directions</a>
                         </Popup>
                     </Marker>
                 </MapContainer>
 
-            </div>
+            </div >
         )
     }
 }

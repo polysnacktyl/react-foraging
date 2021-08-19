@@ -7,6 +7,12 @@
     margin-top     : 70px;
 }
 
+.button-outer {
+    display        : flex;
+    flex-direction : row;
+    justify-content: flex-end;
+}
+
 .notes ul,
 .notes li {
     display        : flex;
@@ -112,16 +118,40 @@
     margin : 0 !important;
 }
 
-.edit-button button {
-    background-color: transparent;
-    border          : none;
-    font-weight     : bolder;
-    margin          : 0;
-    padding         : 0;
-}
 
-.edit-button {
+
+div.edit {
     display        : flex;
     flex-direction : row;
     justify-content: flex-end;
+}
+
+#dropdown-basic::after {
+    content: none
+}
+
+.dropdown-menu {
+    display       : flex !important;
+    flex-direction: column;
+    align-content : center;
+    padding       : 0 !important;
+}
+
+.edit-newmodal {
+    display       : flex;
+    flex-direction: row;
+    flex-wrap     : wrap;
+    padding-left  : 1rem;
+    margin-top    : 20px;
+}
+
+.edit-newmodal:hover {
+    cursor          : pointer;
+    background-color: #e9ecef;
+}
+
+.edit-newmodal p {
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
 }

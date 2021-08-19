@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import { Context } from '../../utils/Reducer';
+import { Dropdown } from 'react-bootstrap';
 import Upload from '../Upload/Upload';
 import './style.css';
 
@@ -15,7 +16,7 @@ function Gallery() {
 
     const success = async () => {
         const res = await axios({
-            url: 'http://localhost:3000/auth/mine', params: {user: user}
+            url: 'http://localhost:3000/auth/mine', params: { user: user }
         });
 
         setImages(res.data)
@@ -43,6 +44,7 @@ function Gallery() {
                 await fail(error);
             }
         }, 0);
+
     }
 
     useEffect(() => {
@@ -96,7 +98,18 @@ function Gallery() {
                             )}
                         </div>
                         <div className='image-upload-area'>
-                            <Upload loadImages={loadImages} />
+                            <Dropdown className='image-upload-dropdown'>
+                            <Dropdown.Toggle variant='light' id="dropdown-basic">
+                            <span
+                                            role='img'
+                                            aria-label='mushroom emoji'>
+                                            +🍄
+                                        </span>
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                <Upload loadImages={loadImages} />
+                                </Dropdown.Menu>
+                            </Dropdown>
                         </div>
                     </div>
                 </div>

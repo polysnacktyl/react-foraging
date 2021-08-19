@@ -2,23 +2,38 @@
     display        : flex;
     flex-direction : row !important;
     border-radius  : 5px;
-    padding        : 10px 0px 10px 0px;
-    justify-content: center;
+    padding        : 10px 0px 10px 10px;
+    justify-content: flex-start;
     align-items    : center;
-    width          : 400px;
+    width          : 600px;
+
 }
 
-.image-form {
+image-form form {
     display       : flex;
-    flex-direction: row !important;
-}
-
-.image-form button {
-    height: 22px;
+  
+    padding       : 15px !important;
+    margin        : 20px;
+    width         : stretch;
 }
 
 .form-input {
     display       : flex;
     flex-direction: row;
-    width         : 200px;
+
+}
+
+.image-submit {
+    display       : flex;
+    flex-direction: row;
+    flex-wrap     : wrap;
+    border-radius : 10;
+    margin        : 5px;
+    border        : solid !important;
+}
+
+.upload-button {
+    display        : flex !important;
+    flex-direction : row;
+    justify-content: flex-end;
 }

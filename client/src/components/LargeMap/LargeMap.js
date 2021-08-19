@@ -8,6 +8,7 @@ import './LargeMap.css';
 function LargeMapp(props) {
     const [isLoading, setLoading] = useState(true);
     const [points, setPoints] = useState([]);
+    //eslint-disable-next-line
     const [uniquePoints, setUniquePoints] = useState([]);
     const [selectedPoints, setSelectedPoints] = useState([]);
     const [center, setCenter] = useState([]);
@@ -65,17 +66,11 @@ function LargeMapp(props) {
         // eslint-disable-next-line 
     }, []);
 
-    console.log(
-        'points:', points.length,
-        'uniquePoints:', uniquePoints.length,
-        'selectedPoints:', selectedPoints.length,
-        'centerCoords:', [center]
-    );
-
-
     if (isLoading) {
         return (
-            <div>...loading</div>
+            <div>
+                ...loading
+            </div>
         )
     } else {
 
@@ -124,9 +119,9 @@ function LargeMapp(props) {
                                 ))}
 
                             </MapContainer>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div >
         )
     };

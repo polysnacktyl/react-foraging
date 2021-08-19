@@ -9,7 +9,7 @@ function Navbar() {
 
   return (
     <div className='nav-links'>
-      <Link to="/">home</Link>
+     
 
       {loggedIn === false && (
         <>
