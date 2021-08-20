@@ -5,9 +5,13 @@ import './style.css';
 
 export default function Upload(props) {
     const [fileInputState, setFileInputState] = useState('');
-    const [tagInputState, setTagInputState] = useState('');
+    const [nameInputState, setNameInputState] = useState('');
+    const [commonInputState, setCommonInputState] = useState('');
+    const [notesInputState, setNotesInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
-    const [tags, setTags] = useState();
+    const [common, setCommon] = useState();
+    const [notes, setNotes] = useState();
+    const [name, setName] = useState();
     const { state } = useContext(Context);
     const user = state.user;
 
@@ -18,10 +22,22 @@ export default function Upload(props) {
 
     };
 
-    const handleTagInputChange = (e) => {
-        const tag = e.target.value;
-        if (tag) { setTags(tag) };
-        setTagInputState(e.target.value);
+    const handleNameInputChange = (e) => {
+        const name = e.target.value;
+        if (name) { setName(name) };
+        setNameInputState(e.target.value);
+    }
+
+    const handleCommonInputChange = (e) => {
+        const commonName = e.target.value.split(',');
+        if (commonName) { setCommon(commonName) };
+        setCommonInputState(e.target.value);
+    }
+
+    const handleNotesInputChange = (e) => {
+        const notesInput = e.target.value;
+        if (notesInput) { setNotes(notesInput) };
+        setNotesInputState(e.target.value);
     }
 
     const handleSubmitFile = (e) => {
@@ -42,14 +58,14 @@ export default function Upload(props) {
         try {
             await fetch('http://localhost:3000/auth/upload', {
                 method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage, user: user, tags: tags }),
+                body: JSON.stringify({ data: base64EncodedImage, user: user, name: name, commonNames: common, notes: notes }),
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            console.log(user, tags);
+            console.log(user, name);
 
             setFileInputState('');
-            setTagInputState('');
+            setNameInputState('');
 
             props.loadImages();
 
@@ -71,12 +87,23 @@ export default function Upload(props) {
                         value={fileInputState}
                         className="form-input" />
                     <Form.Control
-                        id='tags'
+                        id='name'
                         type='text'
-                        name='tags'
                         placeholder='name that fungus'
-                        value={tagInputState}
-                        onChange={handleTagInputChange} />
+                        value={nameInputState}
+                        onChange={handleNameInputChange} />
+                    <Form.Control
+                        id='common'
+                        type='text'
+                        placeholder='common names'
+                        value={commonInputState}
+                        onChange={handleCommonInputChange} />
+                    <Form.Control
+                        id='notes'
+                        type='text'
+                        placeholder='notes'
+                        value={notesInputState}
+                        onChange={handleNotesInputChange} />
                     <div className='upload-button'>
                         <Button
                             size="sm"

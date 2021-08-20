@@ -123,8 +123,7 @@ router.get("/logout", (req, res) => {
 
 router.post('/upload', async (req, res) => {
   try {
-    const tags = req.body.tags.split(',');
-    console.log('split', tags);
+    const name = req.body.name;
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
@@ -156,7 +155,9 @@ router.post('/upload', async (req, res) => {
     mongoose.connect('mongodb://localhost/fungID');
     var new_upload = new Upload({
       user: req.body.user,
-      tags: tags,
+      commonNames: req.body.commonNames,
+      name: name,
+      notes: req.body.notes,
       created: createdate[0],
       latitude: latitude,
       longitude: longitude,
@@ -196,15 +197,27 @@ router.get('/mine', async (req, res) => {
 });
 
 router.get('/locate', async (req, res) => {
+  console.log(req.query);
   const user = req.query.user;
-  const mushroom = req.query.tags;
-  console.log(user, mushroom);
-  try {
-    db.Upload
-      .find({ $and: [{ user: user }, { tags: mushroom }] })
-      .then(theseFungi => res.json(theseFungi))
-  } catch { (err) => res.status(400).json(err.message); }
-})
+  const name = req.query.name;
+  const common = req.query.commonNames;
+  if (req.query.name) {
+    try {
+      db.Upload
+        .find({ $and: [{ user: user }, { name: name }] })
+        .then(theseFungi => res.json(theseFungi))
+    } catch { (err) => res.status(400).json(err.message); }
+  } else {
+    try {
+      db.Upload
+        .find({ $and: [{ user: user }, { commonNames: common }] })
+        .then(theseFungi => res.json(theseFungi))
+    } catch { (err) => res.status(400).json(err.message); }
+    // console.log(res.json());
+
+  }
+}
+)
 
 router.get('/detail', async (req, res) => {
   const ID = (req.query._id);
@@ -218,10 +231,11 @@ router.get('/detail', async (req, res) => {
 router.put('/edit', async (req, res) => {
   const tags = req.body.tags;
   const image = req.body._id;
-
+  const common = req.body.commonNames;
+  console.log(common);
   try {
     await db.Upload
-      .findByIdAndUpdate(image, { tags: tags }, { new: true })
+      .findByIdAndUpdate(image, { tags: tags, commonNames: common }, { new: true })
       .then(image => res.send(image))
 
   } catch { (err) => res.status(400).json(err.message); }

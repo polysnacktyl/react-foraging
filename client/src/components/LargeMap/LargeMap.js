@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Context } from '../../utils/Reducer';
@@ -9,13 +10,17 @@ function LargeMapp(props) {
     const [isLoading, setLoading] = useState(true);
     const [points, setPoints] = useState([]);
     //eslint-disable-next-line
-    const [uniquePoints, setUniquePoints] = useState([]);
+    const [uniqueByName, setUniqueByName] = useState([]);
+    const [uniqueByCommon, setUniqueByCommon] = useState([]);
     const [selectedPoints, setSelectedPoints] = useState([]);
     const [center, setCenter] = useState([]);
     const [zoom, setZoom] = useState('');
+    const [sort, setSort] = useState('name');
     const { state, dispatch } = useContext(Context);
     const user = state.user;
-    const unique = [...new Set(points.map(item => item.tags[0]))];
+    const uniqueName = [...new Set(points.map(item => item.name))];
+    const uniqueCommon = [...new Set(points.map(item => item.commonNames[0]))];
+
 
     const success = async () => {
         const res = await axios({
@@ -27,28 +32,65 @@ function LargeMapp(props) {
             payload: res.data
         })
 
+
         setPoints(res.data);
         setSelectedPoints(res.data);
-        setUniquePoints(unique);
+        setUniqueByName(uniqueName);
         setCenter([res.data[0].latitude, res.data[0].longitude]);
         setZoom(15);
     };
 
     async function handleChangePoints(e) {
-        const thisMushroom = e.target.innerHTML;
+        let name;
+        let common;
+        if (sort === 'name') { name = e.target.innerHTML; common = null; };
+        if (sort === 'common') { name = null; common = e.target.innerHTML; console.log(common) };
         const res = await axios({
-            url: 'http://localhost:3000/auth/locate', params: { user: user, tags: thisMushroom }
+            url: 'http://localhost:3000/auth/locate', params: { user: user, name: name, commonNames: common }
         })
-
+        console.log(res.data);
+        console.log(points);
         setSelectedPoints(res.data);
-        setUniquePoints(unique);
+        setUniqueByName(uniqueName);
+        setUniqueByCommon(uniqueCommon);
         setCenter([res.data[0].latitude, res.data[0].longitude]);
     };
+
+    function toggleSort() {
+        if (sort === 'name') {
+            setSort('common');
+        };
+        if (sort === 'common') {
+            setSort('name');
+        };
+    };
+
+
+    let sortPoints;
+    if (sort === 'name') {
+        sortPoints = uniqueName.map((point, i) => {
+            if (uniqueName.length === 0) { return (<div>...</div>) };
+            return (
+                <div key={i}>
+                    <li onClick={handleChangePoints}>{point}</li>
+                </div>
+            )
+        })
+    } else {
+        sortPoints = uniqueCommon.map((point, i) => {
+            if (uniqueCommon.length === 0) { return (<div>...</div>) };
+            return (
+                <div key={i}>
+                    <li onClick={handleChangePoints}>{point}</li>
+                </div>
+            )
+        });
+    }
 
     function handleClearSelection() {
         setSelectedPoints(points);
         setCenter([points[0].latitude, points[0].longitude]);
-    }
+    };
 
     function loadCoords() {
         setTimeout(async () => {
@@ -59,12 +101,13 @@ function LargeMapp(props) {
                 console.log(error);
             }
         }, 0);
-    }
+    };
 
     useEffect(() => {
         loadCoords();
         // eslint-disable-next-line 
     }, []);
+
 
     if (isLoading) {
         return (
@@ -73,25 +116,18 @@ function LargeMapp(props) {
             </div>
         )
     } else {
-
         return (
             <div className='content-container'>
                 <div className='large-map-view'>
                     <div className='all-tags'>
                         <h4>tags</h4>
-                        {unique.length ? (
-                            <div className='tags-div'>
-                                {unique.map((point, i) => (
-                                    <div key={i}>
-                                        <li onClick={handleChangePoints}>{point}</li>
-                                    </div>
-                                ))}
+                        <div className='tags-div'>
+                            <div className='sort-button'>
+                                <Button size='sm' onClick={toggleSort}>toggle sort</Button>
                             </div>
-                        ) : (
-                            <div>
-                                <p>nothin here</p>
-                            </div>
-                        )}
+                            {sortPoints}
+                        </div>
+
                         <div className='clear-selection'>
                             <li onClick={handleClearSelection}>clear selection</li>
                         </div>
@@ -113,7 +149,7 @@ function LargeMapp(props) {
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
                                             <img src={point.thumbnail} style={{ width: 300, borderRadius: 10 }} alt={point.alt} />
-                                            <Link to={`/detail/${point._id}`}><p className='popup-text'>{point.tags[0]}</p></Link>
+                                            <Link to={`/detail/${point._id}`}><p className='popup-text'>{point.name}</p></Link>
                                         </Popup>
                                     </Marker>
                                 ))}
@@ -125,8 +161,8 @@ function LargeMapp(props) {
             </div >
         )
     };
-};
 
+};
 
 export default LargeMapp;
 
