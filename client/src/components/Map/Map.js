@@ -14,12 +14,12 @@ function Mapp() {
     useEffect(() => {
         setLatitude(state.images.latitude);
         setLongitude(state.images.longitude);
-        setPopUp(state.images.tags);
+        setPopUp(state.images.commonNames);
         setLoading(false);
         setCoords(state.images.latitude + ',' + state.images.longitude);
         // eslint-disable-next-line 
     }, []);
-    console.log(coords)
+    
 
     if (isLoading) {
         return (

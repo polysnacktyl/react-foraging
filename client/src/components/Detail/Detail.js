@@ -12,11 +12,11 @@ function Detail(props) {
     const { id } = useParams();
     const history = useHistory();
     const { state, dispatch } = useContext(Context);
-    const [images, setImages] = useState([props])
+    const [images, setImages] = useState([])
     const [isLoading, setLoading] = useState(true);
-    const [tags, setTags] = useState([]);
     const [date, setDate] = useState([]);
     const [coords, setCoords] = useState();
+    const [common, setCommon] = useState();
     const idquery = id;
 
     const success = async () => {
@@ -28,15 +28,29 @@ function Detail(props) {
             type: 'fetchSuccess',
             payload: res.data[0]
         })
+        console.log(res.data);
 
         setImages(res.data[0].imageurl);
-        setTags(res.data[0].tags);
         const messyDate = (res.data[0].created.split(':'));
         setDate(messyDate[1] + '/' + messyDate[2] + '/' + messyDate[0]);
         setCoords(res.data[0].latitude + ', ' + res.data[0].longitude);
+        setCommon(res.data[0].commonNames);
     }
 
-    console.log(coords);
+    // const commonNamez = () => {
+
+
+    //     // if (common.length > 0)
+    //     common.map((name, i) => {
+    //         return (
+    //             <li>
+    //                 {name[i]}
+    //             </li>
+    //         )
+    //     })
+    // };
+
+
 
     const fail = (error) =>
         dispatch({
@@ -85,21 +99,13 @@ function Detail(props) {
                         <div className='top-row'>
                             <div className='details'>
                                 <div className='detail-title'>
-                                    {tags.length ? (
-                                        <div key={tags.id} className='title'>
-                                            <ul>
-                                                {tags.map((tag, i) => (
-                                                    <li key={i} className='tag-one'>
-                                                        <h5 className='image-title'>{tag}</h5>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <p>no tags</p>
-                                        </div>)}
+
+                                    <li className='tag-one'>
+                                        <h5 className='image-title'>{state.images.name}</h5>
+                                    </li>
                                 </div>
+
+
                                 <div className='detail-thumbnail'>
                                     <Image src={images} alt={images.alt} />
                                 </div>
@@ -110,11 +116,12 @@ function Detail(props) {
                                     <div className='edit'>
                                         <Dropdown>
                                             <Dropdown.Toggle variant='light' id="dropdown-basic">
-                                                ***
+                                                •••
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                <div className='edit-newmodal'><NewModal /></div>
-                                                {/* <Dropdown.Item> <NewModal /></Dropdown.Item> */}
+                                                <div className='edit-newmodal'>
+                                                    <NewModal />
+                                                </div>
                                                 <Dropdown.Item><p onClick={deleteImage}>delete this image from my collection</p></Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -122,9 +129,18 @@ function Detail(props) {
                                     </div>
                                 </div>
                                 <ul>
-                                    <li><h5>date: </h5>{date}</li>
-                                    <li><h5>name: </h5>{state.images.tags}</li>
-                                    <li><h5>notes:</h5>...no notes yet</li>
+                                    <li><h5>found: </h5>{date}</li>
+                                    <li><h5>species: </h5>{state.images.name}</li>
+                                    <li><h5>aka: </h5>
+                                        {common.map((name, i) => {
+                                            return (
+                                                <div key={i}>
+                                                    {name}
+                                                </div>
+                                            )
+                                        })}
+                                    </li>
+                                    <li><h5>notes:</h5>{state.images.notes}</li>
                                 </ul>
                             </div>
                         </div>

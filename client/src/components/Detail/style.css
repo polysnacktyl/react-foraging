@@ -151,7 +151,12 @@ div.edit {
 }
 
 .edit-newmodal p {
-    display: flex;
-    width: 100%;
+    display   : flex;
+    width     : 100%;
     margin-top: 5px;
+}
+
+.btn-light {
+    background-color: transparent !important;
+    border-color    : transparent !important;
 }
