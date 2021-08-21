@@ -4,11 +4,10 @@ import { Button, Modal, Form, Container } from 'react-bootstrap';
 
 function CenterModal(props) {
     const { state } = useContext(Context);
-    const [tags, setTags] = useState('');
-    const [common, setCommon] = useState('');
-    const [notes, setNotes] = useState('');
     const image = state.images._id;
     const [form, setForm] = useState({});
+
+    console.log(state);
 
     const setField = (field, value) => {
         setForm({
@@ -18,18 +17,13 @@ function CenterModal(props) {
 
     };
 
-    async function axiosEdit() {
+    async function axiosEdit(props) {
         try {
-            const res = await fetch('http://localhost:3000/auth/edit', {
+            await fetch('http://localhost:3000/auth/edit', {
                 method: 'PUT',
                 body: JSON.stringify({ name: form.name, _id: image, commonNames: form.common, notes: form.notes }),
                 headers: { 'Content-Type': 'application/json' }
             })
-            const data = await res.json()
-            console.log(data);
-            setNotes(data.notes);
-            setTags(data.tags[0]);
-            setCommon([data.commonNames]);
 
         } catch (err) { console.log(err.message) }
     };
@@ -39,11 +33,10 @@ function CenterModal(props) {
             {...props}
             size='md'
             aria-labelledby='contained-modal-title'
-        // centered
         >
             <Modal.Body>
-
                 <Container>
+
                     <Form >
                         <Form.Group controlId='form.Edit'>
                             <Form.Label>species</Form.Label>
@@ -52,12 +45,13 @@ function CenterModal(props) {
                                 placeholder='species, if known'
                                 onChange={e => setField('name', e.target.value)} />
 
-                            <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                                <Form.Check type='checkbox' label='uncertain/unknown' />
+                            <Form.Group
+                                className='mb-3'
+                                controlId='formBasicCheckbox'>
                             </Form.Group>
 
-
-                            <Form.Group controlId='form.Common'>
+                            <Form.Group
+                                controlId='form.Common'>
                                 <Form.Label>common name(s)</Form.Label>
 
                                 <Form.Control
@@ -79,7 +73,8 @@ function CenterModal(props) {
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={axiosEdit}>
+                <Button
+                    onClick={axiosEdit}>
                     Save
                 </Button>
             </Modal.Footer>

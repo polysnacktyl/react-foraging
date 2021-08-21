@@ -12,6 +12,7 @@ export default function Upload(props) {
     const [common, setCommon] = useState();
     const [notes, setNotes] = useState();
     const [name, setName] = useState();
+    const [known, setKnown] = useState(true);
     const { state } = useContext(Context);
     const user = state.user;
 
@@ -19,7 +20,6 @@ export default function Upload(props) {
         const file = e.target.files[0];
         setSelectedFile(file);
         setFileInputState(e.target.value);
-
     };
 
     const handleNameInputChange = (e) => {
@@ -40,6 +40,12 @@ export default function Upload(props) {
         setNotesInputState(e.target.value);
     }
 
+    const toggleKnown = (e) => {
+        if (!known) { setKnown(true) };
+        if (known) { setKnown(false) }
+        console.log(known);
+    }
+
     const handleSubmitFile = (e) => {
         e.preventDefault();
         if (!selectedFile) return;
@@ -58,11 +64,11 @@ export default function Upload(props) {
         try {
             await fetch('http://localhost:3000/auth/upload', {
                 method: 'POST',
-                body: JSON.stringify({ data: base64EncodedImage, user: user, name: name, commonNames: common, notes: notes }),
+                body: JSON.stringify({ data: base64EncodedImage, user: user, name: name, commonNames: common, notes: notes, identification: known }),
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            console.log(user, name);
+   
 
             setFileInputState('');
             setNameInputState('');
@@ -92,6 +98,14 @@ export default function Upload(props) {
                         placeholder='name that fungus'
                         value={nameInputState}
                         onChange={handleNameInputChange} />
+                    <Form.Group
+                        className='mb-3'
+                        controlId='formBasicCheckbox'>
+                        <Form.Check
+                            type='checkbox'
+                            label='uncertain/unknown'
+                            onChange={toggleKnown} />
+                    </Form.Group>
                     <Form.Control
                         id='common'
                         type='text'

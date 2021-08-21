@@ -38,6 +38,10 @@ const uploadSchema = new Schema({
         required: false,
         trim: true
     },
+    identification: {
+        type: Boolean,
+        required: true
+    },
     commonNames: [
         {
             type: String,

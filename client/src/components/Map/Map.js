@@ -8,6 +8,7 @@ function Mapp() {
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
     const [coords, setCoords] = useState();
+    //eslint-disable-next-line
     const [popUp, setPopUp] = useState();
     const { state } = useContext(Context);
 

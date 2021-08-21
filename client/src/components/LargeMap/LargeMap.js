@@ -11,6 +11,7 @@ function LargeMapp(props) {
     const [points, setPoints] = useState([]);
     //eslint-disable-next-line
     const [uniqueByName, setUniqueByName] = useState([]);
+    //eslint-disable-next-line
     const [uniqueByCommon, setUniqueByCommon] = useState([]);
     const [selectedPoints, setSelectedPoints] = useState([]);
     const [center, setCenter] = useState([]);

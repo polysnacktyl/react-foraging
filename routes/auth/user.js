@@ -157,6 +157,7 @@ router.post('/upload', async (req, res) => {
       user: req.body.user,
       commonNames: req.body.commonNames,
       name: name,
+      identification: req.body.identification,
       notes: req.body.notes,
       created: createdate[0],
       latitude: latitude,
@@ -213,8 +214,6 @@ router.get('/locate', async (req, res) => {
         .find({ $and: [{ user: user }, { commonNames: common }] })
         .then(theseFungi => res.json(theseFungi))
     } catch { (err) => res.status(400).json(err.message); }
-    // console.log(res.json());
-
   }
 }
 )
@@ -230,11 +229,28 @@ router.get('/detail', async (req, res) => {
 
 router.put('/edit', async (req, res) => {
   const image = req.body._id;
+  let commonNames;
+  let identification;
+
+  //when commonNames in req.body => split on comma before inclusion in params
+  //since .split() on udnefined throws an error.
+  if (req.body.commonNames != undefined) {
+    commonNames = req.body.commonNames.split(',')
+  };
+
+  if (req.body.name != undefined) {
+    identification = true
+  };
+
   let params = {
     name: req.body.name,
-    commonNames: req.body.commonNames.split(','),
-    notes: req.body.notes
+    commonNames: commonNames,
+    notes: req.body.notes,
+    identification: identification
   };
+
+  //remove undefined values from params, 
+  //prevent existing document fields updating to null
   for (let prop in params) if (!params[prop]) delete params[prop];
 
   try {

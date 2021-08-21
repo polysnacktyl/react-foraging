@@ -15,6 +15,7 @@ function Detail(props) {
     const [images, setImages] = useState([])
     const [isLoading, setLoading] = useState(true);
     const [date, setDate] = useState([]);
+    //eslint-disable-next-line
     const [coords, setCoords] = useState();
     const [common, setCommon] = useState();
     const idquery = id;
@@ -34,7 +35,6 @@ function Detail(props) {
         setDate(messyDate[1] + '/' + messyDate[2] + '/' + messyDate[0]);
         setCoords(res.data[0].latitude + ', ' + res.data[0].longitude);
         setCommon(res.data[0].commonNames);
-        console.log(res.data);
     };
 
     const fail = (error) =>
@@ -118,7 +118,6 @@ function Detail(props) {
                                     <li><h5>species: </h5>{state.images.name}</li>
                                     <li><h5>aka: </h5>
                                         {common.length ? (
-
                                             <div>
                                                 {common.map((name, i) => {
                                                     return (
@@ -129,7 +128,7 @@ function Detail(props) {
                                                 })
                                                 }
                                             </div>) : (
-                                            <p>nill</p>
+                                            <p></p>
                                         )}
 
                                     </li>
