@@ -28,29 +28,14 @@ function Detail(props) {
             type: 'fetchSuccess',
             payload: res.data[0]
         })
-        console.log(res.data);
 
         setImages(res.data[0].imageurl);
         const messyDate = (res.data[0].created.split(':'));
         setDate(messyDate[1] + '/' + messyDate[2] + '/' + messyDate[0]);
         setCoords(res.data[0].latitude + ', ' + res.data[0].longitude);
         setCommon(res.data[0].commonNames);
-    }
-
-    // const commonNamez = () => {
-
-
-    //     // if (common.length > 0)
-    //     common.map((name, i) => {
-    //         return (
-    //             <li>
-    //                 {name[i]}
-    //             </li>
-    //         )
-    //     })
-    // };
-
-
+        console.log(res.data);
+    };
 
     const fail = (error) =>
         dispatch({
@@ -132,13 +117,21 @@ function Detail(props) {
                                     <li><h5>found: </h5>{date}</li>
                                     <li><h5>species: </h5>{state.images.name}</li>
                                     <li><h5>aka: </h5>
-                                        {common.map((name, i) => {
-                                            return (
-                                                <div key={i}>
-                                                    {name}
-                                                </div>
-                                            )
-                                        })}
+                                        {common.length ? (
+
+                                            <div>
+                                                {common.map((name, i) => {
+                                                    return (
+                                                        <div key={i}>
+                                                            {name}
+                                                        </div>
+                                                    )
+                                                })
+                                                }
+                                            </div>) : (
+                                            <p>nill</p>
+                                        )}
+
                                     </li>
                                     <li><h5>notes:</h5>{state.images.notes}</li>
                                 </ul>

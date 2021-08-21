@@ -14,12 +14,12 @@ function Mapp() {
     useEffect(() => {
         setLatitude(state.images.latitude);
         setLongitude(state.images.longitude);
-        setPopUp(state.images.commonNames);
+        setPopUp(state.images.commonNames[0]);
         setLoading(false);
         setCoords(state.images.latitude + ',' + state.images.longitude);
         // eslint-disable-next-line 
     }, []);
-    
+
 
     if (isLoading) {
         return (
@@ -39,7 +39,6 @@ function Mapp() {
                     />
                     <Marker position={[latitude, longitude]}>
                         <Popup>
-                            <li>{popUp}</li>
                             <a href={`https://www.google.com/maps?q=${coords}`} target={'_blank'} rel={'noopener noreferrer'}>directions</a>
                         </Popup>
                     </Marker>

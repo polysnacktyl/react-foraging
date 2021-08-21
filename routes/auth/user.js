@@ -229,19 +229,20 @@ router.get('/detail', async (req, res) => {
 });
 
 router.put('/edit', async (req, res) => {
-  const tags = req.body.tags;
   const image = req.body._id;
-  const common = req.body.commonNames;
-  console.log(common);
+  let params = {
+    name: req.body.name,
+    commonNames: req.body.commonNames.split(','),
+    notes: req.body.notes
+  };
+  for (let prop in params) if (!params[prop]) delete params[prop];
+
   try {
     await db.Upload
-      .findByIdAndUpdate(image, { tags: tags, commonNames: common }, { new: true })
+      .findByIdAndUpdate(image, params, { new: true })
       .then(image => res.send(image))
 
-  } catch { (err) => res.status(400).json(err.message); }
-
-
-
+  } catch { (err) => res.status(400).json(err); }
 });
 
 router.get("/loggedIn", (req, res) => {
