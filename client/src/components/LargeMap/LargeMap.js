@@ -70,7 +70,8 @@ function LargeMapp(props) {
     let sortPoints;
     if (sort === 'name') {
         sortPoints = uniqueName.map((point, i) => {
-            if (uniqueName.length === 0) { return (<div>...</div>) };
+            if (uniqueName.length === 0) { return <div>...</div> };
+            if (point === undefined) { return null };
             return (
                 <div key={i}>
                     <li onClick={handleChangePoints}>{point}</li>
@@ -150,7 +151,7 @@ function LargeMapp(props) {
                                     <Marker key={i} position={[point.latitude, point.longitude]}>
                                         <Popup>
                                             <img src={point.thumbnail} style={{ width: 300, borderRadius: 10 }} alt={point.alt} />
-                                            <Link to={`/detail/${point._id}`}><p className='popup-text'>{point.name}</p></Link>
+                                            <Link to={`/detail/${point._id}`}><p className='popup-text'>{point.name || point.commonNames[0]}</p></Link>
                                         </Popup>
                                     </Marker>
                                 ))}

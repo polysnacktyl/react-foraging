@@ -68,7 +68,7 @@ export default function Upload(props) {
                 headers: { 'Content-Type': 'application/json' },
             });
 
-   
+
 
             setFileInputState('');
             setNameInputState('');
@@ -81,7 +81,7 @@ export default function Upload(props) {
         }
     };
     return (
-
+        
         <div className='image-upload'>
             <Form onSubmit={handleSubmitFile} className="image-form">
                 <>

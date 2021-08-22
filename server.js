@@ -16,7 +16,8 @@ app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'))
 
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: ['http://localhost:3000', 
+  'https://react-forager.herokuapp.com/'],
   credentials: true,
 })
 );
@@ -29,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
 }
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/fungID',
+mongoose.connect(process.env.MONGODB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
