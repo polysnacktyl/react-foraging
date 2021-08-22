@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "main": "server.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "env-cmd NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -10,19 +13,16 @@
     "client": "cd client && npm run start",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.4",
-    "concurrently": "^4.1.0",
+    "concurrently": "^6.2.1",
     "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "jest": "^20.0.4",
-    "nodemon": "^1.18.7",
-    "react-app-env": "^1.2.3"
+    "dotenv": "^10.0.0"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^1.5.0",
+    "@material-ui/core": "^4.12.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -35,9 +35,7 @@
     "cloudinary": "^1.26.2",
     "cloudinary-core": "^2.11.4",
     "cloudinary-react": "^1.7.0",
-    "concurrently": "^6.2.0",
     "cookie-parser": "^1.4.5",
-    "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "focus-trap-react": "^8.7.0",
@@ -45,27 +43,20 @@
     "jsonwebtoken": "^8.5.1",
     "leaflet": "^1.7.1",
     "mongoose": "^5.13.2",
-    "nodemon": "^2.0.9",
+    "nodemon": "^2.0.12",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
     "react-file-base64": "^1.0.3",
     "react-leaflet": "^3.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^1.1.5",
     "semantic-ui-react": "^2.0.3",
     "web-vitals": "^1.0.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ]
 }
