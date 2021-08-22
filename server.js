@@ -7,6 +7,8 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+app.set('port', PORT)
+
 app.use(express.static('public'));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
@@ -16,8 +18,8 @@ app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'))
 
 app.use(cors({
-  origin: ['http://localhost:3000', 
-  'https://react-forager.herokuapp.com/'],
+  origin: ['http://localhost:3000',
+    'https://react-forager.herokuapp.com/'],
   credentials: true,
 })
 );
