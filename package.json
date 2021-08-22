@@ -28,7 +28,6 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "babel-eslint": "10.1.0",
-    "babel-jest": "^27.0.6",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.0",
