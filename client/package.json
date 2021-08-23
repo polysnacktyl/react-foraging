@@ -3,7 +3,6 @@
     "version": "0.1.0",
     "private": true,
     "proxy": "http://localhost:3001",
-    "homepage": "https://react-forager.herokuapp.com/",
     "dependencies": {
         "@react-leaflet/core": ">=1.0.0 <1.1.0 || ^1.1.1",
         "babel-eslint": "10.1.0",

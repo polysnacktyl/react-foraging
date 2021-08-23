@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -18,8 +18,7 @@ app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'))
 
 app.use(cors({
-  origin: ['http://localhost:3000/',
-    'https://react-forager.herokuapp.com/'],
+  origin: ['https://react-forager.herokuapp.com'],
   credentials: true,
 })
 );
