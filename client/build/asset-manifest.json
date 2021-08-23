@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/static/css/main.1eec2610.chunk.css",
-    "main.js": "/static/js/main.53701cf3.chunk.js",
-    "main.js.map": "/static/js/main.53701cf3.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.609e913b.js",
-    "runtime-main.js.map": "/static/js/runtime-main.609e913b.js.map",
-    "static/css/2.eacbdd6c.chunk.css": "/static/css/2.eacbdd6c.chunk.css",
-    "static/js/2.082c7d12.chunk.js": "/static/js/2.082c7d12.chunk.js",
-    "static/js/2.082c7d12.chunk.js.map": "/static/js/2.082c7d12.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.045ab642e947674d19e998ff4cb89815.js": "/precache-manifest.045ab642e947674d19e998ff4cb89815.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.eacbdd6c.chunk.css.map": "/static/css/2.eacbdd6c.chunk.css.map",
-    "static/css/main.1eec2610.chunk.css.map": "/static/css/main.1eec2610.chunk.css.map",
-    "static/js/2.082c7d12.chunk.js.LICENSE.txt": "/static/js/2.082c7d12.chunk.js.LICENSE.txt",
-    "static/media/tester.svg": "/static/media/tester.baa7e5b3.svg"
+    "main.css": "https://react-forager.herokuapp.com/static/css/main.1eec2610.chunk.css",
+    "main.js": "https://react-forager.herokuapp.com/static/js/main.a9c79737.chunk.js",
+    "main.js.map": "https://react-forager.herokuapp.com/static/js/main.a9c79737.chunk.js.map",
+    "runtime-main.js": "https://react-forager.herokuapp.com/static/js/runtime-main.9809689a.js",
+    "runtime-main.js.map": "https://react-forager.herokuapp.com/static/js/runtime-main.9809689a.js.map",
+    "static/css/2.eacbdd6c.chunk.css": "https://react-forager.herokuapp.com/static/css/2.eacbdd6c.chunk.css",
+    "static/js/2.6e82fa12.chunk.js": "https://react-forager.herokuapp.com/static/js/2.6e82fa12.chunk.js",
+    "static/js/2.6e82fa12.chunk.js.map": "https://react-forager.herokuapp.com/static/js/2.6e82fa12.chunk.js.map",
+    "index.html": "https://react-forager.herokuapp.com/index.html",
+    "precache-manifest.3c2880d7b2584d4842514b727fddfa10.js": "https://react-forager.herokuapp.com/precache-manifest.3c2880d7b2584d4842514b727fddfa10.js",
+    "service-worker.js": "https://react-forager.herokuapp.com/service-worker.js",
+    "static/css/2.eacbdd6c.chunk.css.map": "https://react-forager.herokuapp.com/static/css/2.eacbdd6c.chunk.css.map",
+    "static/css/main.1eec2610.chunk.css.map": "https://react-forager.herokuapp.com/static/css/main.1eec2610.chunk.css.map",
+    "static/js/2.6e82fa12.chunk.js.LICENSE.txt": "https://react-forager.herokuapp.com/static/js/2.6e82fa12.chunk.js.LICENSE.txt",
+    "static/media/tester.svg": "https://react-forager.herokuapp.com/static/media/tester.baa7e5b3.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.609e913b.js",
+    "static/js/runtime-main.9809689a.js",
     "static/css/2.eacbdd6c.chunk.css",
-    "static/js/2.082c7d12.chunk.js",
+    "static/js/2.6e82fa12.chunk.js",
     "static/css/main.1eec2610.chunk.css",
-    "static/js/main.53701cf3.chunk.js"
+    "static/js/main.a9c79737.chunk.js"
   ]
 }
