@@ -22,7 +22,7 @@ function Register() {
         passwordVerify,
       };
 
-      await axios.post("http://localhost:3000/auth/", registerData);
+      await axios.post("https://react-forager.herokuapp.com/auth/", registerData);
       // await axios.post(
       // "https://the-future.herokuapp.com/auth/",registerData);
       await getLoggedIn();

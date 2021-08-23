@@ -1,5 +1,6 @@
 {
   "name": "fungi-react",
+  "homepage": "https://react-forager.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "main": "server.js",

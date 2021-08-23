@@ -28,7 +28,7 @@ function UploadModal(props) {
 
     const uploadImage = async () => {
         try {
-            await fetch('http://localhost:3000/auth/upload', {
+            await fetch('https://react-forager.herokuapp.com/auth/upload', {
                 method: 'POST',
                 body: JSON.stringify({ data: selectedFile, user: user, tags: tags }),
                 headers: { 'Content-Type': 'application/json' },

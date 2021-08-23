@@ -62,7 +62,7 @@ export default function Upload(props) {
 
     const uploadImage = async (base64EncodedImage) => {
         try {
-            await fetch('http://localhost:3000/auth/upload', {
+            await fetch('https://react-forager.herokuapp.com/auth/upload', {
                 method: 'POST',
                 body: JSON.stringify({ data: base64EncodedImage, user: user, name: name, commonNames: common, notes: notes, identification: known }),
                 headers: { 'Content-Type': 'application/json' },
