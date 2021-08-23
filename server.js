@@ -9,7 +9,7 @@ const cors = require('cors');
 
 app.set('port', PORT)
 
-app.use(express.static('public'));
+app.use('/static', express.static(path.join(__dirname, 'public'));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
