@@ -9,7 +9,7 @@ const cors = require('cors');
 
 app.set('port', PORT)
 
-app.use(express.static('public'));
+app.use(express.static(__dirname +'/public'));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json({ limit: '50mb' }));
 app.use(cookieParser());
@@ -23,7 +23,7 @@ app.use(cors({
 })
 );
 
-app.get("*", (req, res) => {
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "client/build/index.html"));
 });
 
