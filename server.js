@@ -20,10 +20,10 @@ app.get("/*", (req, res) => {
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
-}v
+};
 
 app.use('/api', require('./routes/api'));
-app.use('/auth', require('./routes/auth/user'))
+app.use('/auth', require('./routes/auth/user'));
 
 app.use(cors({
   origin: ['https://react-forager.herokuapp.com'],
