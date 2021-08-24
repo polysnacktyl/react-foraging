@@ -11,7 +11,7 @@ function LogOutBtn() {
   const history = useHistory();
 
   async function logOut() {
-    await axios.get('http://localhost:3000/auth/logout');
+    await axios.get('https://react-forager.herokuapp.com/auth/logout');
     // await axios.get('https://the-future.herokuapp.com/auth/logout');
     await getLoggedIn();
 
