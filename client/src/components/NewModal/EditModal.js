@@ -25,6 +25,13 @@ function CenterModal(props) {
                 headers: { 'Content-Type': 'application/json' }
             })
 
+            setForm({
+                ...form,
+                ['name']: '',
+                ['common']: '',
+                ['notes']: ''
+            });
+
         } catch (err) { console.log(err.message) }
     };
 
