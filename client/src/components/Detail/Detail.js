@@ -22,7 +22,7 @@ function Detail(props) {
 
     const success = async () => {
         const res = await axios({
-            url: `https://react-forager.herokuapp.com/auth/detail`, params: { _id: idquery }
+            url: `http://localhost:3000/auth/detail`, params: { _id: idquery }
         })
 
         dispatch({
@@ -59,7 +59,7 @@ function Detail(props) {
         try {
             await axios({
                 method: 'DELETE',
-                url: 'https://react-forager.herokuapp.com/auth/delete',
+                url: 'http://localhost:3000/auth/delete',
                 params: { _id: idquery }
             })
                 .then(history.push('/gallery'))

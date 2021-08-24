@@ -17,7 +17,7 @@ function Login() {
     e.preventDefault();
    
     try {
-      const { data } = await axios.post('https://react-forager.herokuapp.com/auth/login', {
+      const { data } = await axios.post('http://localhost:3000/auth/login', {
         email,
         password
       });
