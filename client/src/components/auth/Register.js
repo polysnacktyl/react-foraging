@@ -23,8 +23,6 @@ function Register() {
       };
 
       await axios.post("https://react-forager.herokuapp.com/", registerData);
-      // await axios.post(
-      // "https://the-future.herokuapp.com/auth/",registerData);
       await getLoggedIn();
       history.push("/");
     } catch (err) {

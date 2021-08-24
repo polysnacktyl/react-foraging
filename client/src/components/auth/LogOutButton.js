@@ -12,7 +12,6 @@ function LogOutBtn() {
 
   async function logOut() {
     await axios.get('https://react-forager.herokuapp.com/auth/logout');
-    // await axios.get('https://the-future.herokuapp.com/auth/logout');
     await getLoggedIn();
 
     dispatch({
