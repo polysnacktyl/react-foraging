@@ -22,7 +22,7 @@ app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'));
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://react-forager.herokuapp.com'],
+  origin: ['https://react-forager.herokuapp.com'],
   credentials: true,
 })
 );

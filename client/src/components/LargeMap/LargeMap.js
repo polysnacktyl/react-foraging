@@ -25,7 +25,7 @@ function LargeMapp(props) {
 
     const success = async () => {
         const res = await axios({
-            url: 'http://localhost:3000/auth/mine', params: { user: user }
+            url: 'https://react-forager.herokuapp.com/auth/mine', params: { user: user }
         });
 
         dispatch({
@@ -47,7 +47,7 @@ function LargeMapp(props) {
         if (sort === 'name') { name = e.target.innerHTML; common = null; };
         if (sort === 'common') { name = null; common = e.target.innerHTML; console.log(common) };
         const res = await axios({
-            url: 'http://localhost:3000/auth/locate', params: { user: user, name: name, commonNames: common }
+            url: 'https://react-forager.herokuapp.com/auth/locate', params: { user: user, name: name, commonNames: common }
         })
         console.log(res.data);
         console.log(points);

@@ -19,7 +19,7 @@ function CenterModal(props) {
 
     async function axiosEdit(props) {
         try {
-            await fetch('http://localhost:3000/auth/edit', {
+            await fetch('https://react-forager.herokuapp.com/auth/edit', {
                 method: 'PUT',
                 body: JSON.stringify({ name: form.name, _id: image, commonNames: form.common, notes: form.notes }),
                 headers: { 'Content-Type': 'application/json' }

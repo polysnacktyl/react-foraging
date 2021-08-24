@@ -16,7 +16,7 @@ function Gallery() {
 
     const success = async () => {
         const res = await axios({
-            url: 'http://localhost:3000/auth/mine', params: { user: user }
+            url: 'https://react-forager.herokuapp.com/auth/mine', params: { user: user }
         });
 
         setImages(res.data)
