@@ -133,8 +133,8 @@ router.post('/upload', async (req, res) => {
       });
 
     let createdate = (uploadResponse.image_metadata.CreateDate.split(' '));
-    let thumbnail = ('http://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg');
-    let imageurl = ('http://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg')
+    let thumbnail = ('https://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg');
+    let imageurl = ('https://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg')
 
     let lat = uploadResponse.image_metadata.GPSLatitude.split(/[^\d\w.]+/);
     let lat1 = parseFloat(lat[0]);
