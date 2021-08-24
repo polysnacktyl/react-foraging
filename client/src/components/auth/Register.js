@@ -22,7 +22,7 @@ function Register() {
         passwordVerify,
       };
 
-      await axios.post("https://react-forager.herokuapp.com/", registerData);
+      await axios.post("https://react-forager.herokuapp.com/auth/", registerData);
       await getLoggedIn();
       history.push("/");
     } catch (err) {
