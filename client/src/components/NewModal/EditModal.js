@@ -7,7 +7,7 @@ function CenterModal(props) {
     const image = state.images._id;
     const [form, setForm] = useState({});
 
-    console.log(state);
+
 
     const setField = (field, value) => {
         setForm({
@@ -48,6 +48,7 @@ function CenterModal(props) {
                         <Form.Group controlId='form.Edit'>
                             <Form.Label>species</Form.Label>
                             <Form.Control
+                                value={form.name}
                                 type='text'
                                 placeholder='species, if known'
                                 onChange={e => setField('name', e.target.value)} />
@@ -62,6 +63,7 @@ function CenterModal(props) {
                                 <Form.Label>common name(s)</Form.Label>
 
                                 <Form.Control
+                                    value={form.common}
                                     type='text'
                                     placeholder='comma separated'
                                     onChange={e => setField('common', e.target.value)} />
@@ -71,6 +73,7 @@ function CenterModal(props) {
                                 <Form.Label>notes</Form.Label>
                                 <Form.Control
                                     as='textarea' rows={3}
+                                    value={form.notes}
                                     placeholder='notes'
                                     onChange={e => setField('notes', e.target.value)} />
                             </Form.Group>
