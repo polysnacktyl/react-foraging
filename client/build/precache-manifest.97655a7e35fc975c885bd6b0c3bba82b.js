@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4f76928bbdfe45e8edbe61fb9e407cf1",
+    "revision": "c36d7f8cc53820aaebf06eb74a9b1575",
     "url": "https://react-forager.herokuapp.com/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://react-forager.herokuapp.com/static/css/2.eacbdd6c.chunk.css"
   },
   {
-    "revision": "aa9f8ca11d61508e58a0",
+    "revision": "8d8e11e0f2f3135cdf40",
     "url": "https://react-forager.herokuapp.com/static/css/main.1eec2610.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://react-forager.herokuapp.com/static/js/2.6e82fa12.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "aa9f8ca11d61508e58a0",
-    "url": "https://react-forager.herokuapp.com/static/js/main.ba3f7502.chunk.js"
+    "revision": "8d8e11e0f2f3135cdf40",
+    "url": "https://react-forager.herokuapp.com/static/js/main.031a64da.chunk.js"
   },
   {
     "revision": "9f313a3d630a95568692",

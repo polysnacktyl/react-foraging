@@ -15,8 +15,8 @@ router.route('/')
                 });
 
             let createdate = (uploadResponse.image_metadata.CreateDate.split(' '));
-            let thumbnail = ('https://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg');
-            let imageurl = ('https://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg')
+            let thumbnail = ('https://res.cloudinary.com/fung-id/image/upload/c_thumb,w_400/' + uploadResponse.public_id + '.jpg', { secure: true });
+            let imageurl = ('https://res.cloudinary.com/fung-id/image/upload/' + uploadResponse.public_id + '.jpg', { secure: true })
 
             let lat = uploadResponse.image_metadata.GPSLatitude.split(/[^\d\w.]+/);
             let lat1 = parseFloat(lat[0]);
