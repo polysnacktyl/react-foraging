@@ -2,99 +2,170 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../../utils/Reducer';
 import { Button, Modal, Form, Row } from 'react-bootstrap';
 
-function UploadModal(props) {
-    const [modalShow, setModalShow] = useState(false);
-    const [selectedFile, setSelectedFile] = useState([]);
-    const [tags, setTags] = useState();
+function CenterModal(props) {
+    const [fileInputState, setFileInputState] = useState('');
+    const [nameInputState, setNameInputState] = useState('');
+    const [commonInputState, setCommonInputState] = useState('');
+    const [notesInputState, setNotesInputState] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
+    const [common, setCommon] = useState();
+    const [notes, setNotes] = useState();
+    const [name, setName] = useState();
+    const [known, setKnown] = useState(true);
     const { state } = useContext(Context);
     const user = state.user;
 
-    const handleSubmitFile = (e) => {
-        let file = selectedFile;
-        console.log(props)
+    const handleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        setSelectedFile(file);
+        setFileInputState(e.target.value);
+    };
 
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
+    const handleNameInputChange = (e) => {
+        const name = e.target.value;
+        if (name) { setName(name) };
+        setNameInputState(e.target.value);
+    }
+
+    const handleCommonInputChange = (e) => {
+        const commonName = e.target.value.split(',');
+        if (commonName) { setCommon(commonName) };
+        setCommonInputState(e.target.value);
+    }
+
+    const handleNotesInputChange = (e) => {
+        const notesInput = e.target.value;
+        if (notesInput) { setNotes(notesInput) };
+        setNotesInputState(e.target.value);
+    }
+
+    const toggleKnown = (e) => {
+        if (!known) { setKnown(true) };
+        if (known) { setKnown(false) }
+        console.log(known);
+    }
+
+    const handleSubmitFile = (e) => {
+        e.preventDefault();
+        if (!selectedFile) return;
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
         reader.onloadend = () => {
             uploadImage(reader.result);
         };
         reader.onerror = () => {
             console.error('oop');
+
         };
-        props.onHide();
-        uploadImage(selectedFile);
     };
 
-
-    const uploadImage = async () => {
+    const uploadImage = async (base64EncodedImage) => {
         try {
             await fetch('https://react-forager.herokuapp.com/auth/upload', {
                 method: 'POST',
-                body: JSON.stringify({ data: selectedFile, user: user, tags: tags }),
+                body: JSON.stringify({
+                    data: base64EncodedImage,
+                    user: user,
+                    name: name,
+                    commonNames: common,
+                    notes: notes,
+                    identification: known
+                }),
                 headers: { 'Content-Type': 'application/json' },
             });
-            props.loadImages();
+
+            setFileInputState('');
+            setNameInputState('');
+            setCommonInputState('');
+            setNotesInputState('');
+
+            props.loadimages();
+            props.onHide(false);
 
         } catch (err) {
-            console.error(err.message);
+            console.error(err);
 
         }
     };
 
+    return (
 
-    return (<>
-        <button variant='light' onClick={() => setModalShow(true)} selectedFile={selectedFile}>
-            add an image
-        </button>
-        <Modal show={modalShow} onHide={() => setModalShow(false)} selectedFile={selectedFile} tags={tags}>
+
+        <Modal {...props} loadimages={props.loadimages} show={props.show}
+            size='md'
+        >
 
 
             <Modal.Body>
 
-                <Form.Group as={Row} controlId="formFileSm" className="mb-3" >
-                    <Form.Control
-                        type="file"
-                        size="sm"
-                        onChange={(e) => setSelectedFile(e.target.value)} />
-                </Form.Group>
+                <Form onSubmit={handleSubmitFile} className="image-form">
+                    <>
+                        <Form.Control
+                            id="fileInput"
+                            type="file"
+                            name="image"
+                            onChange={handleFileInputChange}
+                            value={fileInputState}
+                            className="form-input" />
+                        <Form.Control
+                            id='name'
+                            type='text'
+                            placeholder='name that fungus'
+                            value={nameInputState}
+                            onChange={handleNameInputChange} />
+                        <Form.Group
+                            className='mb-3'
+                            controlId='formBasicCheckbox'>
+                            <Form.Check
+                                type='checkbox'
+                                label='uncertain/unknown'
+                                onChange={toggleKnown} />
+                        </Form.Group>
+                        <Form.Control
+                            id='common'
+                            type='text'
+                            placeholder='common names'
+                            value={commonInputState}
+                            onChange={handleCommonInputChange} />
+                        <Form.Control
+                            id='notes'
+                            type='text'
+                            placeholder='notes'
+                            value={notesInputState}
+                            onChange={handleNotesInputChange} />
+                        <div className='upload-button'>
+                        </div>
+                    </>
 
-
-                <Form.Group as={Row}>
-                    <Form.Label column>Name</Form.Label>
-                    <Form.Control
-                        size="sm"
-                        type="text"
-                        placeholder='name that mushroom'
-                        onChange={(e) => setTags(e.target.value)} />
-
-                </Form.Group>
+                </Form>
 
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={(e) => handleSubmitFile(e)}>
-                    Save
+                    upload
                 </Button>
             </Modal.Footer>
         </Modal>
-    </>
+
     );
 }
 
-// function UploadModal() {
-//     const [modalShow, setModalShow] = useState(false);
+function UploadModal(props) {
+    const [modalShow, setModalShow] = useState(false);
 
-//     return (
-//         <>
-//             <button variant='light' onClick={() => setModalShow(true)}>
-//                 add an image
-//             </button>
+    return (
+        <>
+            <p onClick={(e) => setModalShow(true)}>
+                add an image
+            </p>
 
-//             <CenterModal
-//                 show={modalShow}
-//                 onHide={() => setModalShow(false)}
-//             />
-//         </>
-//     );
-// }
+            <CenterModal
+                show={modalShow}
+                onHide={(e) => setModalShow(false)}
+                loadimages={props.loadimages}
+            />
+        </>
+    );
+}
 
 export default UploadModal;

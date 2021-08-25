@@ -3,8 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Image, CloudinaryContext } from 'cloudinary-react';
 import { Context } from '../../utils/Reducer';
-import { Dropdown } from 'react-bootstrap';
-import Upload from '../Upload/Upload';
+import UploadModal from '../NewModal/UploadModal';
 import './style.css';
 
 
@@ -35,7 +34,7 @@ function Gallery() {
         });
 
 
-    function loadImages() {
+    function loadimages() {
         setTimeout(async () => {
             try {
                 await success();
@@ -48,7 +47,7 @@ function Gallery() {
     }
 
     useEffect(() => {
-        loadImages()
+        loadimages()
         //eslint-disable-next-line
     }, []);
 
@@ -98,18 +97,8 @@ function Gallery() {
                             )}
                         </div>
                         <div className='image-upload-area'>
-                            <Dropdown className='image-upload-dropdown'>
-                            <Dropdown.Toggle variant='light' id="dropdown-basic">
-                            <span
-                                            role='img'
-                                            aria-label='mushroom emoji'>
-                                            +🍄
-                                        </span>
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                <Upload loadImages={loadImages} />
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            <UploadModal loadimages={loadimages} />
+
                         </div>
                     </div>
                 </div>

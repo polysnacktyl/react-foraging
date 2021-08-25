@@ -8,16 +8,14 @@ function CenterModal(props) {
     const [form, setForm] = useState({});
 
 
-
     const setField = (field, value) => {
         setForm({
             ...form,
             [field]: value
         })
-
     };
 
-    async function axiosEdit(props) {
+    async function axiosEdit(e) {
         try {
             await fetch('https://react-forager.herokuapp.com/auth/edit', {
                 method: 'PUT',
@@ -32,18 +30,22 @@ function CenterModal(props) {
                 ['notes']: ''
             });
 
+            props.loadImage();
+            props.onHide(false);
+
         } catch (err) { console.log(err.message) }
+
+
+
     };
 
     return (
         <Modal
-            {...props}
+            {...props} show={props.show}
             size='md'
-            aria-labelledby='contained-modal-title'
-        >
+            aria-labelled-by='contained-modal-title' >
             <Modal.Body>
                 <Container>
-
                     <Form >
                         <Form.Group controlId='form.Edit'>
                             <Form.Label>species</Form.Label>
@@ -59,7 +61,7 @@ function CenterModal(props) {
                             </Form.Group>
 
                             <Form.Group
-                                controlId='form.Common'>
+                                controlId='form.common'>
                                 <Form.Label>common name(s)</Form.Label>
 
                                 <Form.Control
@@ -84,26 +86,27 @@ function CenterModal(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    onClick={axiosEdit}>
-                    Save
+                    onClick={(e) => axiosEdit(e)}>
+                    save
                 </Button>
             </Modal.Footer>
         </Modal>
     );
 }
 
-function NewModal() {
+function NewModal(props) {
     const [modalShow, setModalShow] = useState(false);
 
     return (
         <>
-            <p onClick={() => setModalShow(true)}>
+            <p onClick={(e) => setModalShow(true)}>
                 edit details
             </p>
 
             <CenterModal
                 show={modalShow}
-                onHide={() => setModalShow(false)}
+                onHide={(e) => setModalShow(false)}
+                loadImage={props.loadImage}
             />
         </>
     );

@@ -8,7 +8,7 @@ import NewModal from '../NewModal/EditModal.js';
 import Map from '../Map/Map';
 import './style.css';
 
-function Detail(props) {
+function Detail() {
     const { id } = useParams();
     const history = useHistory();
     const { state, dispatch } = useContext(Context);
@@ -103,11 +103,14 @@ function Detail(props) {
                                             <Dropdown.Toggle variant='light' id="dropdown-basic">
                                                 •••
                                             </Dropdown.Toggle>
+
                                             <Dropdown.Menu>
                                                 <div className='edit-newmodal'>
-                                                    <NewModal />
+                                                    <NewModal loadImage={loadImage}/>
                                                 </div>
-                                                <Dropdown.Item><p onClick={deleteImage}>delete this image from my collection</p></Dropdown.Item>
+                                                <Dropdown.Item>
+                                                    <p onClick={deleteImage}>delete this image from my collection</p>
+                                                </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
 
