@@ -92,10 +92,7 @@ function CenterModal(props) {
 
 
         <Modal {...props} loadimages={props.loadimages} show={props.show}
-            size='md'
-        >
-
-
+            size='md'>
             <Modal.Body>
 
                 <Form onSubmit={handleSubmitFile} className="image-form">
