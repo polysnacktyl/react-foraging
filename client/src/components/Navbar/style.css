@@ -12,7 +12,8 @@ div.navbar {
 
 .nav-links,
 .nav-links a,
-.nav-links button {
+.nav-links button, 
+.nav-links a:hover {
     display         : inline-flex;
     flex-direction  : row;
     margin          : 7px;
