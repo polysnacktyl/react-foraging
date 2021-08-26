@@ -1,4 +1,4 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -19,8 +19,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
 };
 
-// "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-// app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'));
 
 app.use(cors({
