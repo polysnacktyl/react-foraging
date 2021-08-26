@@ -14,8 +14,8 @@
     "client": "cd client && npm run start",
     "install": "cd client && yarn install",
     "build": "cd client && npm run build",
-    "build:dev": "env-cmd -f .env.development npm run-script build",
-    "build:prod": "env-cmd -f .env.production npm run-script build"
+    "build:dev": "env-cmd -f .env npm run-script build",
+    "build:prod": "env-cmd -f .env npm run-script build"
   },
   "devDependencies": {
     "@types/leaflet": "^1.7.4",
