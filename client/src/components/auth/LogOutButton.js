@@ -9,9 +9,10 @@ function LogOutBtn() {
   const { getLoggedIn } = useContext(AuthContext);
   const { dispatch } = useContext(Context);
   const history = useHistory();
+  const urlBase = process.env.REACT_APP_API_URL;
 
   async function logOut() {
-    await axios.get('https://react-forager.herokuapp.com/auth/logout');
+    await axios.get(`${urlBase}/auth/logout`);
     await getLoggedIn();
 
     dispatch({

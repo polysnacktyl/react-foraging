@@ -7,8 +7,9 @@ import './style.css';
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordVerify, setPasswordVerify] = useState("");
-
+  const [passwordVerify, setPasswordVerify] = useState("");  
+  const urlBase = process.env.REACT_APP_API_URL;
+  
   const { getLoggedIn } = useContext(AuthContext);
   const history = useHistory();
 
@@ -22,7 +23,7 @@ function Register() {
         passwordVerify,
       };
 
-      await axios.post("https://react-forager.herokuapp.com/auth/", registerData);
+      await axios.post(`${urlBase}/auth/`, registerData);
       await getLoggedIn();
       history.push("/");
     } catch (err) {

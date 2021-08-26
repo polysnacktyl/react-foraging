@@ -21,11 +21,12 @@ function LargeMapp(props) {
     const user = state.user;
     const uniqueName = [...new Set(points.map(item => item.name))];
     const uniqueCommon = [...new Set(points.map(item => item.commonNames[0]))];
+    const urlBase = process.env.REACT_APP_API_URL;
 
 
     const success = async () => {
         const res = await axios({
-            url: 'https://react-forager.herokuapp.com/auth/mine', params: { user: user }
+            url: `${urlBase}/auth/mine`, params: { user: user }
         });
 
         dispatch({
@@ -47,7 +48,7 @@ function LargeMapp(props) {
         if (sort === 'name') { name = e.target.innerHTML; common = null; };
         if (sort === 'common') { name = null; common = e.target.innerHTML; console.log(common) };
         const res = await axios({
-            url: 'https://react-forager.herokuapp.com/auth/locate', params: { user: user, name: name, commonNames: common }
+            url: `${urlBase}/auth/locate`, params: { user: user, name: name, commonNames: common }
         })
         console.log(res.data);
         console.log(points);

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary').v2;
 const Upload = require('../../models/uploads');
 const mongoose = require('mongoose');
+const mongoDB = process.env.MONGODB_URI;
 db = require('../../models');
 
 router.post("/", async (req, res) => {
@@ -60,7 +61,7 @@ router.post("/", async (req, res) => {
       })
       .send();
   } catch (err) {
-    console.error(err);
+    console.error(err.message);
     res
       .status(500)
       .send();
@@ -122,13 +123,17 @@ router.get("/logout", (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
+  
   try {
     const name = req.body.name;
     const fileStr = req.body.data;
     const uploadResponse = await cloudinary.uploader.upload(
       fileStr,
       {
-        upload_preset: cloudinary.upload_preset,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+        cloud_name: process.env.CLOUDINARY_NAME,
         image_metadata: true
       });
 
@@ -152,7 +157,7 @@ router.post('/upload', async (req, res) => {
     let longitude = (lon1 + lon2 + lon3).toFixed(6) * 1
     if (lon4 === 'W') { longitude = longitude * -1 }
 
-    mongoose.connect('mongodb://localhost/fungID');
+    mongoose.connect(mongoDB);
     var new_upload = new Upload({
       user: req.body.user,
       commonNames: req.body.commonNames,
@@ -166,24 +171,23 @@ router.post('/upload', async (req, res) => {
       imageurl: imageurl
     });
     new_upload.save(function (err) {
-      if (err) console.log(err);
+      if (err) console.log(err.message);
     });
 
     res.json();
   } catch (err) {
-    console.error(err.message);
+    console.error('error message', err);
     res
-      .status(503)
+      .status(533)
       .json({ err: err.message });
   }
 });
 
 router.delete('/delete', async (req, res) => {
-  (console.log(req.query._id));
   try {
     await db.Upload
       .findByIdAndDelete(req.query._id)
-  } catch (err) { console.error(err); }
+  } catch (err) { console.error(err.message); }
 });
 
 router.get('/mine', async (req, res) => {
@@ -198,7 +202,6 @@ router.get('/mine', async (req, res) => {
 });
 
 router.get('/locate', async (req, res) => {
-  console.log(req.query);
   const user = req.query.user;
   const name = req.query.name;
   const common = req.query.commonNames;

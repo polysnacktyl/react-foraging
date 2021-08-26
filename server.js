@@ -7,6 +7,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+
 app.set('port', PORT)
 
 app.use('/static', express.static(path.join(__dirname, 'client', 'build')));
@@ -18,11 +19,14 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"))
 };
 
-app.use('/api', require('./routes/api'));
+// "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+// app.use('/api', require('./routes/api'));
 app.use('/auth', require('./routes/auth/user'));
 
 app.use(cors({
-  origin: ['https://react-forager.herokuapp.com'],
+  origin: [
+    process.env.REACT_APP_API_URL
+  ],
   credentials: true,
 })
 );

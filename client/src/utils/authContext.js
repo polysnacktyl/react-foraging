@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
-
 const AuthContext = createContext();
+const urlBase = process.env.REACT_APP_API_URL;
 
 function AuthContextProvider(props) {
   const [loggedIn, setLoggedIn] = useState(undefined);
+  
 
   async function getLoggedIn() {
-    const loggedInRes = await axios.get('https://react-forager.herokuapp.com/auth/loggedIn');
+    const loggedInRes = await axios.get(`${urlBase}/auth/loggedIn`);
     setLoggedIn(loggedInRes.data);
   }
 

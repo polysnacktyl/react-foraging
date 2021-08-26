@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Context } from '../../utils/Reducer';
-import { Button, Modal, Form, Row } from 'react-bootstrap';
+import { Button, Modal, Form } from 'react-bootstrap';
 
 function CenterModal(props) {
     const [fileInputState, setFileInputState] = useState('');
@@ -12,8 +12,10 @@ function CenterModal(props) {
     const [notes, setNotes] = useState();
     const [name, setName] = useState();
     const [known, setKnown] = useState(true);
+    const urlBase = process.env.REACT_APP_API_URL;
     const { state } = useContext(Context);
     const user = state.user;
+
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -42,7 +44,6 @@ function CenterModal(props) {
     const toggleKnown = (e) => {
         if (!known) { setKnown(true) };
         if (known) { setKnown(false) }
-        console.log(known);
     }
 
     const handleSubmitFile = (e) => {
@@ -53,37 +54,32 @@ function CenterModal(props) {
         reader.onloadend = () => {
             uploadImage(reader.result);
         };
-        reader.onerror = () => {
-            console.error('oop');
+        reader.onerror = (error) => {
+            console.error('line 58: ', error.message);
 
         };
     };
 
     const uploadImage = async (base64EncodedImage) => {
         try {
-            await fetch('https://react-forager.herokuapp.com/auth/upload', {
+            await fetch(`${urlBase}/auth/upload`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    data: base64EncodedImage,
-                    user: user,
-                    name: name,
-                    commonNames: common,
-                    notes: notes,
-                    identification: known
+                    data: base64EncodedImage, user: user, name: name, commonNames: common, notes: notes, identification: known
                 }),
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            setFileInputState('');
-            setNameInputState('');
-            setCommonInputState('');
-            setNotesInputState('');
+            // setFileInputState('');
+            // setNameInputState('');
+            // setCommonInputState('');
+            // setNotesInputState('');
 
             props.loadimages();
             props.onHide(false);
 
         } catch (err) {
-            console.error(err);
+            console.error(err.message);
 
         }
     };
@@ -91,8 +87,8 @@ function CenterModal(props) {
     return (
 
 
-        <Modal {...props} loadimages={props.loadimages} show={props.show}
-            size='md'>
+        <Modal show={props.show}
+        size='lg'>
             <Modal.Body>
 
                 <Form onSubmit={handleSubmitFile} className="image-form">
@@ -152,9 +148,11 @@ function UploadModal(props) {
 
     return (
         <>
-            <p onClick={(e) => setModalShow(true)}>
+            <button 
+            className='show-modal-button'
+            onClick={(e) => setModalShow(true)}>
                 add an image
-            </p>
+            </button>
 
             <CenterModal
                 show={modalShow}

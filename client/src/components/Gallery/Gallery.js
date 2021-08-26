@@ -11,11 +11,12 @@ function Gallery() {
     const { state, dispatch } = useContext(Context);
     const [isLoading, setLoading] = useState(true);
     const [images, setImages] = useState([]);
+    const urlBase = process.env.REACT_APP_API_URL;
     const user = state.user;
 
     const success = async () => {
         const res = await axios({
-            url: 'https://react-forager.herokuapp.com/auth/mine', params: { user: user }
+            url: `${urlBase}/auth/mine`, params: { user: user }
         });
 
         setImages(res.data)

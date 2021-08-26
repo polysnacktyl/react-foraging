@@ -19,10 +19,11 @@ function Detail() {
     const [coords, setCoords] = useState();
     const [common, setCommon] = useState();
     const idquery = id;
+    const urlBase = process.env.REACT_APP_API_URL;
 
     const success = async () => {
         const res = await axios({
-            url: `https://react-forager.herokuapp.com/auth/detail`, params: { _id: idquery }
+            url: `${urlBase}/auth/detail`, params: { _id: idquery }
         })
 
         dispatch({
@@ -59,7 +60,7 @@ function Detail() {
         try {
             await axios({
                 method: 'DELETE',
-                url: 'https://react-forager.herokuapp.com/auth/delete',
+                url: `${urlBase}/auth/delete`,
                 params: { _id: idquery }
             })
                 .then(history.push('/gallery'))
@@ -106,7 +107,7 @@ function Detail() {
 
                                             <Dropdown.Menu>
                                                 <div className='edit-newmodal'>
-                                                    <NewModal loadImage={loadImage}/>
+                                                    <NewModal loadImage={loadImage} />
                                                 </div>
                                                 <Dropdown.Item>
                                                     <p onClick={deleteImage}>delete this image from my collection</p>

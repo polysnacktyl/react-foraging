@@ -11,17 +11,17 @@ function Login() {
   const { getLoggedIn } = useContext(AuthContext);
   const { dispatch } = useContext(Context);
   const history = useHistory();
-
+  const urlBase = process.env.REACT_APP_API_URL;
 
   async function login(e) {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post('https://react-forager.herokuapp.com/auth/login', {
+      const { data } = await axios.post(`${urlBase}/auth/login`, {
         email,
         password
       });
-      console.log(data);
+      
       await getLoggedIn();
 
       dispatch({

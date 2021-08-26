@@ -6,7 +6,7 @@ function CenterModal(props) {
     const { state } = useContext(Context);
     const image = state.images._id;
     const [form, setForm] = useState({});
-
+    const urlBase = process.env.REACT_APP_API_URL;
 
     const setField = (field, value) => {
         setForm({
@@ -17,7 +17,7 @@ function CenterModal(props) {
 
     async function axiosEdit(e) {
         try {
-            await fetch('https://react-forager.herokuapp.com/auth/edit', {
+            await fetch(`${urlBase}/auth/edit`, {
                 method: 'PUT',
                 body: JSON.stringify({ name: form.name, _id: image, commonNames: form.common, notes: form.notes }),
                 headers: { 'Content-Type': 'application/json' }
@@ -25,9 +25,9 @@ function CenterModal(props) {
 
             setForm({
                 ...form,
-                ['name']: '',
-                ['common']: '',
-                ['notes']: ''
+                'name': '',
+                'common': '',
+                'notes': ''
             });
 
             props.loadImage();
@@ -43,7 +43,7 @@ function CenterModal(props) {
         <Modal
             {...props} show={props.show}
             size='md'
-            aria-labelled-by='contained-modal-title' >
+            aria-labelledby='contained-modal-title' >
             <Modal.Body>
                 <Container>
                     <Form >
