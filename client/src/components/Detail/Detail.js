@@ -20,6 +20,9 @@ function Detail() {
     const [common, setCommon] = useState();
     const idquery = id;
     const urlBase = process.env.REACT_APP_API_URL;
+    const public_id = state.images.publicID;
+
+    console.log(state);
 
     const success = async () => {
         const res = await axios({
@@ -61,7 +64,7 @@ function Detail() {
             await axios({
                 method: 'DELETE',
                 url: `${urlBase}/auth/delete`,
-                params: { _id: idquery }
+                params: { _id: idquery, public_id: public_id }
             })
                 .then(history.push('/gallery'))
         } catch (err) { console.error(err.message) };

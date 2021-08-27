@@ -123,7 +123,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.post('/upload', async (req, res) => {
-  
+
   try {
     const name = req.body.name;
     const fileStr = req.body.data;
@@ -168,7 +168,8 @@ router.post('/upload', async (req, res) => {
       latitude: latitude,
       longitude: longitude,
       thumbnail: thumbnail,
-      imageurl: imageurl
+      imageurl: imageurl,
+      publicID: uploadResponse.public_id
     });
     new_upload.save(function (err) {
       if (err) console.log(err.message);
@@ -184,10 +185,22 @@ router.post('/upload', async (req, res) => {
 });
 
 router.delete('/delete', async (req, res) => {
+  const public_id = req.query.public_id;
   try {
     await db.Upload
-      .findByIdAndDelete(req.query._id)
-  } catch (err) { console.error(err.message); }
+      .findByIdAndDelete(req.query._id);
+
+    cloudinary.uploader.destroy(public_id,
+      {
+        public_id: public_id,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+        cloud_name: process.env.CLOUDINARY_NAME,
+      },
+      function (error, result) { console.log(result, error); });
+
+  } catch (err) { console.error(err); }
 });
 
 router.get('/mine', async (req, res) => {

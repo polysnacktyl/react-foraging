@@ -88,7 +88,7 @@ function CenterModal(props) {
 
 
         <Modal show={props.show}
-        size='lg'>
+            size='lg'>
             <Modal.Body>
 
                 <Form onSubmit={handleSubmitFile} className="image-form">
@@ -148,9 +148,9 @@ function UploadModal(props) {
 
     return (
         <>
-            <button 
-            className='show-modal-button'
-            onClick={(e) => setModalShow(true)}>
+            <button
+                className='show-modal-button'
+                onClick={(e) => setModalShow(true)}>
                 add an image
             </button>
 

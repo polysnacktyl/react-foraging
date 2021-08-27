@@ -13,6 +13,11 @@ const uploadSchema = new Schema({
         type: String,
         required: false
     },
+    publicID:
+    {
+        type: String,
+        required: true
+    },
     thumbnail:
     {
         type: String,
