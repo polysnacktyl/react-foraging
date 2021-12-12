@@ -28,7 +28,7 @@ app.use(cors({
 })
 );
 
-mongoose.connect(process.env.MONGODB_URI,
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fungID",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

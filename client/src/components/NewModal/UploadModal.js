@@ -70,11 +70,6 @@ function CenterModal(props) {
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            // setFileInputState('');
-            // setNameInputState('');
-            // setCommonInputState('');
-            // setNotesInputState('');
-
             props.loadimages();
             props.onHide(false);
 
@@ -87,7 +82,7 @@ function CenterModal(props) {
     return (
 
 
-        <Modal show={props.show}
+        <Modal {...props} show={props.show}
             size='lg'>
             <Modal.Body>
 

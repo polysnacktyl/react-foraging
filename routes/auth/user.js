@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { user: existingUser._id, },
-      process.env.JWT_SECRET,
+      process.env.REACT_APP_JWT_SECRET,
       { expiresIn: '12h' }
     );
 
@@ -282,7 +282,7 @@ router.get("/loggedIn", (req, res) => {
     const token = req.cookies.token;
 
     if (!token) return res.json(false);
-    jwt.verify(token, process.env.JWT_SECRET);
+    jwt.verify(token, process.env.REACT_APP_JWT_SECRET);
     res
       .send(true)
 
